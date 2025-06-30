@@ -13,7 +13,7 @@ export default function AboutSection(){
     ];
 
     return(
-        <div id='about-me' className="h-[40rem] rounded-md mt-40 pt-40 md:pt-0 bg-black flex flex-col items-center justify-center relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
+        <div id='about-me' className="min-h-[40rem] rounded-md mt-40 pt-40 md:pt-0 bg-black flex flex-col items-center justify-center relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
             {/* <div className="relative flex-col z-10 text-3xl md:text-5xl md:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-neutral-500 flex items-center gap-2 md:gap-8">
                 <span className="text-white">About Me</span>
                 <span className="text-2xl mb-5">Know Me More</span>

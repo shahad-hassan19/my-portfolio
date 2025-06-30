@@ -42,13 +42,13 @@ export default function SkillsSection(){
     ];
 
     return(
-        <div id='about-me' className="h-[40rem] rounded-md mt-40 pt-40 md:pt-0 bg-black flex flex-col items-center justify-center relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
+        <div id='skills' className="min-h-[40rem] rounded-md pt-40 bg-black flex flex-col items-center justify-center relative w-full px-4 md:px-6 lg:px-8 xl:px-24">
             <MorphingText texts={texts} />
 
             <div className="flex flex-col-reverse md:flex-row items-center justify-center lg:justify-around w-full">
                 <div>
                     <p className="text-xl font-bold opacity-70">Here are few technologies that are cup of my tea :</p>
-                    <ul className="grid grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-3 mt-5 list-disc">
+                    <ul className="grid grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-3 mt-5 list-disc list-inside">
                         <li className="text-1.25xl font-semibold opacity-70">JavaScript</li>
                         <li className="text-1.25xl font-semibold opacity-70">TypeScript</li>
                         <li className="text-1.25xl font-semibold opacity-70">Next JS</li>

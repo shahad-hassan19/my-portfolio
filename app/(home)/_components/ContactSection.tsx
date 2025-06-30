@@ -9,12 +9,8 @@ import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import MorphingText from "@/components/ui/morphing-text";
 
-import { FaFacebook } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { FaInstagram } from 'react-icons/fa';
-import { FaGithub } from 'react-icons/fa';
-import { FaTelegramPlane } from "react-icons/fa";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faLinkedin, faXTwitter, faInstagram, faGithub, faTelegram } from '@fortawesome/free-brands-svg-icons';
 import toast, { Toaster } from 'react-hot-toast';
 
 interface EmailJSResponse {
@@ -75,11 +71,11 @@ export default function ContactSection(){
     ];
 
     return(
-        <div id='about-me' className="h-[40rem] rounded-md mt-40 pt-40 md:pt-0 bg-black flex flex-col items-center justify-center relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
+        <div id='contact-me' className="min-h-[40rem] rounded-md pt-40 bg-black flex flex-col items-center justify-center relative w-full px-4 md:px-6 lg:px-8 xl:px-24">
             <MorphingText texts={texts} />
             <Toaster toastOptions={{duration: 4000}} />
 
-            <div className="flex flex-col md:flex-row items-center justify-center lg:justify-between md:gap-10 mt-10 w-full">
+            <div className="flex flex-col md:flex-row items-center justify-center lg:justify-between gap-y-5 md:gap-10 mt-10 w-full">
                 <div className=" text-center lg:text-left px-3">
                     <p className=" text-justify text-xl mb-12">
                         &quot;I&apos;m thrilled to be on this journey of innovation and discovery, and I&apos;m excited to connect, collaborate, and create something amazing together. Let&apos;s build the future, one line of code at a time!&quot;
@@ -101,11 +97,11 @@ export default function ContactSection(){
                         </p>
                     </div>
                     <div className="flex justify-center lg:justify-start align-items-center gap-x-5 font-bold pt-12 text-2xl">
-                        <a className="hover:text-blue-900" href="https://www.facebook.com/shahad.chauhangurjar.9" rel='noreferrer' target='_blank' ><FaFacebook/></a>
-                        <a className="hover:text-blue-900" href="https://www.linkedin.com/in/shahad-hassan-82287a220" rel='noreferrer' target='_blank'><FaLinkedin/></a>
-                        <a className="hover:text-blue-900" href="https://twitter.com/HassanShahad019m" rel='noreferrer' target='_blank'><FaXTwitter/></a>
-                        <a className="hover:text-blue-900" href="https://github.com/shahad-hassan19" rel='noreferrer' target='_blank'><FaGithub/></a>
-                        <a className="hover:text-blue-900" href="https://www.instagram.com/shahad_chauhan019/" rel='noreferrer' target='_blank'><FaInstagram/></a>
+                        <a className="hover:text-blue-900" href="https://www.facebook.com/shahad.chauhangurjar.9" rel='noreferrer' target='_blank' ><FontAwesomeIcon icon={faFacebook}/></a>
+                        <a className="hover:text-blue-900" href="https://www.linkedin.com/in/shahad-hassan-82287a220" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faLinkedin}/></a>
+                        <a className="hover:text-blue-900" href="https://twitter.com/HassanShahad019m" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faXTwitter}/></a>
+                        <a className="hover:text-blue-900" href="https://github.com/shahad-hassan19" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faGithub}/></a>
+                        <a className="hover:text-blue-900" href="https://www.instagram.com/shahad_chauhan019/" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faInstagram}/></a>
                     </div>
                 </div>
                 <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-black">
@@ -142,7 +138,7 @@ export default function ContactSection(){
                             type="submit"
                         >
                             {
-                                loading ? "Sending ..." : (<span className='inline-flex items-center justify-center gap-x-1'><FaTelegramPlane/>Send</span>)
+                                loading ? "Sending ..." : (<span className='inline-flex items-center justify-center gap-x-1'><FontAwesomeIcon icon={faTelegram}/>Send</span>)
                             }
                             <BottomGradient />
                         </button>
