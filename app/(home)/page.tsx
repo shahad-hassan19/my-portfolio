@@ -1,12 +1,12 @@
+import { MyNavbar } from "./_components/Navbar";
 import HeroSection from "./_components/HeroSection";
 import AboutSection from "./_components/AboutSection";
 import SkillsSection from "./_components/SkillsSection";
-// import ResumeSection from "./_components/ResumeSection";
+import ProjectsSection from "./_components/ProjectsSection";
+import ExperienceSection from "./_components/ExperienceSection";
 import TestimonialsSection from "./_components/TestimonialsSection";
 import ContactSection from "./_components/ContactSection";
-import FooterSection from './_components/FooterSection';
-import { MyNavbar } from "./_components/Navbar";
-
+import FooterSection from "./_components/FooterSection";
 
 export default function Home() {
   return (
@@ -15,7 +15,8 @@ export default function Home() {
       <HeroSection/>
       <AboutSection/>
       <SkillsSection/>
-      {/* <ResumeSection/> */}
+      <ProjectsSection/>
+      <ExperienceSection/>
       <TestimonialsSection/>
       <ContactSection/>
       <FooterSection/>

@@ -1,10 +1,8 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
-
 import { Spotlight } from "@/components/ui/Spotlight";
 import { Button } from "@/components/ui/button";
 import { ShootingStars } from "@/components/ui/shooting-stars";
@@ -48,7 +46,7 @@ export default function HeroSection() {
                 className="-top-40 left-0 md:left-60 md:-top-20 z-10"
                 fill="white"
             />
-            <div className="flex flex-col lg:flex-row items-center justify-between w-full py-16 px-6 gap-12 relative z-20">
+            <div className="flex flex-col lg:flex-row items-center justify-between w-full py-16 px-6 gap-12 relative z-20 sm:px-4 md:px-6 lg:px-8 xl:px-24">
                 <div className="flex flex-col items-center md:items-start w-full lg:w-1/2 max-w-xl">
                     <motion.h1
                         initial={{ opacity: 0, y: -30 }}
@@ -122,10 +120,8 @@ export default function HeroSection() {
                     </div>
                 </motion.div>
             </div>
-            <div className='flex justify-center items-center mt-20 pb-10 relative z-30'>
-                <Link href="about-me" className="animate-bounce px-3 cursor-pointer"><div className='text-xl font-bold self-center'/></Link>
-            </div>
             <ShootingStars/>
+            <StarsBackground/>
         </div>
     );
 }

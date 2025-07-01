@@ -42,7 +42,7 @@ export default function SkillsSection(){
     ];
 
     return(
-        <div id='skills' className="min-h-[40rem] rounded-md pt-40 bg-black flex flex-col items-center justify-center relative w-full px-4 md:px-6 lg:px-8 xl:px-24">
+        <div id='skills' className="min-h-[40rem] rounded-md pt-40 bg-black flex flex-col items-center justify-center gap-10 relative w-full px-4 md:px-6 lg:px-8 xl:px-24">
             <MorphingText texts={texts} />
 
             <div className="flex flex-col-reverse md:flex-row items-center justify-center lg:justify-around w-full">

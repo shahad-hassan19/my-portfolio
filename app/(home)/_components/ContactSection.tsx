@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import emailjs from '@emailjs/browser';
+import { motion } from "framer-motion";
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -12,6 +13,8 @@ import MorphingText from "@/components/ui/morphing-text";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faLinkedin, faXTwitter, faInstagram, faGithub, faTelegram } from '@fortawesome/free-brands-svg-icons';
 import toast, { Toaster } from 'react-hot-toast';
+import { StarsBackground } from "@/components/ui/stars-background";
+import { ShootingStars } from "@/components/ui/shooting-stars";
 
 interface EmailJSResponse {
     text: string;
@@ -71,12 +74,24 @@ export default function ContactSection(){
     ];
 
     return(
-        <div id='contact-me' className="min-h-[40rem] rounded-md pt-40 bg-black flex flex-col items-center justify-center relative w-full px-4 md:px-6 lg:px-8 xl:px-24">
-            <MorphingText texts={texts} />
+        <div id='contact-me' className="min-h-[40rem] rounded-md pt-40 pb-20 bg-black flex flex-col items-center justify-center gap-10 relative w-full px-4 md:px-6 lg:px-8 xl:px-24 z-50">
+            <motion.div
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className="w-full"
+            >
+                <MorphingText texts={texts} />
+            </motion.div>
             <Toaster toastOptions={{duration: 4000}} />
 
             <div className="flex flex-col md:flex-row items-center justify-center lg:justify-between gap-y-5 md:gap-10 mt-10 w-full">
-                <div className=" text-center lg:text-left px-3">
+                <motion.div
+                    initial={{ x: -100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
+                    className="text-center lg:text-left px-3 w-full z-20"
+                >
                     <p className=" text-justify text-xl mb-12">
                         &quot;I&apos;m thrilled to be on this journey of innovation and discovery, and I&apos;m excited to connect, collaborate, and create something amazing together. Let&apos;s build the future, one line of code at a time!&quot;
                     </p>
@@ -103,8 +118,13 @@ export default function ContactSection(){
                         <a className="hover:text-blue-900" href="https://github.com/shahad-hassan19" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faGithub}/></a>
                         <a className="hover:text-blue-900" href="https://www.instagram.com/shahad_chauhan019/" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faInstagram}/></a>
                     </div>
-                </div>
-                <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-black">
+                </motion.div>
+                <motion.div
+                    initial={{ x: 100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
+                    className="max-w-md z-20 w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-black"
+                >
                     <form className="my-8" ref={form} onSubmit={sendEmail}>
                         <LabelInputContainer className="mb-4">
                             <Label htmlFor="name">Name</Label>
@@ -143,8 +163,10 @@ export default function ContactSection(){
                             <BottomGradient />
                         </button>
                     </form>
-                </div>
+                </motion.div>
             </div>
+            <ShootingStars />
+            <StarsBackground />
         </div>
     )
 }

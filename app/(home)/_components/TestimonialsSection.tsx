@@ -1,9 +1,12 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 
 import MorphingText from "@/components/ui/morphing-text";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import { StarsBackground } from "@/components/ui/stars-background";
+import { ShootingStars } from "@/components/ui/shooting-stars";
 
 
 export default function TestimonialsSection(){
@@ -38,10 +41,26 @@ export default function TestimonialsSection(){
     ];
 
     return(
-        <div id='testimonials' className="min-h-[40rem] rounded-md pt-40 bg-black flex flex-col items-center justify-center relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
-            <MorphingText texts={texts} />
+        <div id='testimonials' className="min-h-[40rem] rounded-md pt-40 bg-black flex flex-col items-center justify-center gap-10 relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
+            <motion.div
+                initial={{ x: 100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className="w-full"
+            >
+                <MorphingText texts={texts} />
+            </motion.div>
 
-            <AnimatedTestimonials testimonials={testimonials} />
+            <motion.div
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+                className="w-full z-20"
+            >
+                <AnimatedTestimonials testimonials={testimonials} />
+            </motion.div>
+            <ShootingStars />
+            <StarsBackground />
         </div>
     )
 }

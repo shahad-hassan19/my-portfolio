@@ -4,6 +4,8 @@ import React from "react";
 import MorphingText from "@/components/ui/morphing-text";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
+import { GraduationCap } from "lucide-react";
+import { motion } from "framer-motion";
 
 
 export default function AboutSection(){
@@ -13,44 +15,59 @@ export default function AboutSection(){
     ];
 
     return(
-        <div id='about-me' className="min-h-[40rem] rounded-md mt-40 pt-40 md:pt-0 bg-black flex flex-col items-center justify-center relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
-            {/* <div className="relative flex-col z-10 text-3xl md:text-5xl md:leading-tight max-w-5xl mx-auto text-center tracking-tight font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-neutral-500 flex items-center gap-2 md:gap-8">
-                <span className="text-white">About Me</span>
-                <span className="text-2xl mb-5">Know Me More</span>
-            </div> */}
+        <div id='about-me' className="min-h-[40rem] rounded-md pt-40 bg-black flex flex-col items-center justify-center gap-10 relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
+            <motion.div
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                className="w-full"
+            >
+                <MorphingText texts={texts} />
+            </motion.div>
 
-            <MorphingText texts={texts} />
-
-            <div className="flex mt-20 md:mt-10 flex-col lg:flex-row justify-between align-items-center ">
-                <div className="px-3 flex-2">
+            <div className="mt-10 w-full flex flex-col lg:flex-row gap-8 items-stretch">
+                {/* Intro Section */}
+                <motion.div
+                    initial={{ x: -100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.7, ease: "easeOut" }}
+                    className="flex-1 px-3 flex flex-col justify-center"
+                >
                     <h2 className="mb-4 text-2.6xl text-center lg:text-left">
                         Hi, I&apos;m <span className="font-bold">Shahad Hassan</span>
                     </h2>
                     <p className="mb-4 text-xl text-justify font-normal">
-                        I&apos;m a Full Stack developer, who is passionate about MERN Stack. I love building websites that captivate users. I&apos;m always exploring new ways to bring ideas to life through code. Being a firm believer in the power of teamwork, I cherish the opportunity to collaborate and contribute as a team player, where our collective creativity sparks exceptional results. I embrace challenges as opportunities for growth, dedicating myself to hard work and continuous learning in this ever-evolving tech landscape.
+                        I&apos;m a passionate Full Stack Developer with hands-on experience in building robust, scalable, and user-centric web applications. With a strong foundation in Computer Science and a keen eye for design and usability, I specialize in JavaScript/TypeScript-based ecosystems, including React.js, Next.js, and Node.js, with practical expertise in MongoDB, Prisma, and REST APIs. At Softles, I evolved from an intern into a full-time engineer, contributing to critical features and third-party API integrations across real-world projects. I&apos;ve developed and deployed scalable frontends and secure backends, collaborating with teams on debugging, architectural reviews, and delivering seamless user experiences. I thrive in Agile environments, love tackling implementation challenges, and continuously push myself to improve code quality, system design, and user experience. Let&apos;s connect if you&apos;re looking for a dependable full stack engineer who codes with purpose and delivers with precision.
                     </p>
-                </div>
-                <div className="w-80 rounded-md self-center lg:ml-6 mt-6 lg:mt-0 lg:px-0">
-                    <div className="badge-base LI-profile-badge" data-locale="en_US" data-size="large" data-theme="dark" data-type="HORIZONTAL" data-vanity="shahad-hassan-82287a220" data-version="v1"></div>
-                </div>
-            </div>
-            <div className="mt-6 w-full grid sm:grid-cols-1 md:grid-cols-2 justify-center lg:flex lg:justify-between align-items-center ">
-                <div className="mt-4 px-3">
-                    <p className="font-medium">Name:</p>
-                    <p className="font-semibold text-lg">Shahad Hassan</p>
-                </div>
-                <div className="mt-4 px-3">
-                    <p className="font-medium">Email:</p>
-                    <p className="font-semibold underline text-lg">shahadg1983@gmail.com</p>
-                </div>
-                <div className="mt-4 px-3">
-                    <p className="font-medium">Date of Birth:</p>
-                    <p className="font-semibold text-lg">05 June, 2003</p>
-                </div>
-                <div className="mt-4 px-3">
-                    <p className="font-medium">From:</p>
-                    <p className="font-semibold text-lg">Uttar Pradesh, India</p>
-                </div>
+                </motion.div>
+                {/* Education Card */}
+                <motion.div
+                    initial={{ x: 100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
+                    className="flex-1 max-h-min bg-gradient-to-br from-yellow-50/10 via-yellow-100/5 to-neutral-900/80 border border-yellow-400/30 rounded-md p-3 md:p-6 shadow-lg flex flex-col items-start justify-center lg:justify-start min-w-[260px] max-w-min mx-auto"
+                >
+                    <div className="flex items-center gap-2 mb-3">
+                        <h3 className="text-2xl font-bold text-yellow-400 tracking-wide inline-flex items-center gap-1"><GraduationCap/> Education</h3>
+                    </div>
+                    <div className="space-y-4 w-full">
+                        <div>
+                            <p className="font-semibold text-base text-white">Bachelor of Technology - CSE</p>
+                            <p className="text-sm text-neutral-200">Vidya College of Engineering <span className='text-neutral-400'>/ 2020-2024</span></p>
+                            <p className="text-xs text-yellow-300">Abdul Kalam Technical University</p>
+                        </div>
+                        <div>
+                            <p className="font-semibold text-base text-white">Intermediate</p>
+                            <p className="text-sm text-neutral-200">D.S. Public School <span className='text-neutral-400'>/ 2019-2020</span></p>
+                            <p className="text-xs text-yellow-300">CBSE Board</p>
+                        </div>
+                        <div>
+                            <p className="font-semibold text-base text-white">High-School</p>
+                            <p className="text-sm text-neutral-200">D.S. Public School <span className='text-neutral-400'>/ 2017-2018</span></p>
+                            <p className="text-xs text-yellow-300">CBSE Board</p>
+                        </div>
+                    </div>
+                </motion.div>
             </div>
             <ShootingStars />
             <StarsBackground />

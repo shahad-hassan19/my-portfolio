@@ -24,12 +24,12 @@ export function MyNavbar() {
             link: "skills",
         },
         {
-            name: "Resume",
-            link: "resume",
-        },
-        {
             name: "Projects",
             link: "projects",
+        },
+        {
+          name: "Experience",
+          link: "experience",
         },
         {
             name: "Testimonials",
