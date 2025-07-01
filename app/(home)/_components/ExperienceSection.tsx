@@ -6,6 +6,7 @@ import MorphingText from "@/components/ui/morphing-text";
 
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { Timeline } from "@/components/ui/timeline";
+import { StarsBackground } from "@/components/ui/stars-background";
 
 
 export default function ExperienceSection(){
@@ -19,7 +20,7 @@ export default function ExperienceSection(){
         {
             title: "Feb 2025 - Present",
             content: (
-                <div className="mb-4 transition-transform hover:scale-[1.025] hover:shadow-xl">
+                <div className="mb-4 transition-transform hover:scale-[1.025] hover:shadow-xl z-20">
                     <div className="flex flex-col items-start justify-start mb-2">
                         <div className="flex items-center gap-2 mb-1">
                             <span className="inline-block w-2 h-6 rounded bg-gradient-to-b from-purple-500 to-blue-500 mr-2"></span>
@@ -39,7 +40,7 @@ export default function ExperienceSection(){
         {
             title: "Feb 2024 - Feb 2025",
             content: (
-                <div className="mb-4 transition-transform hover:scale-[1.025] hover:shadow-xl">
+                <div className="mb-4 transition-transform hover:scale-[1.025] hover:shadow-xl z-20">
                     <div className="flex flex-col items-start justify-start mb-2">
                         <div className="flex items-center gap-2 mb-1">
                             <span className="inline-block w-2 h-6 rounded bg-gradient-to-b from-purple-500 to-blue-500 mr-2"></span>
@@ -58,7 +59,7 @@ export default function ExperienceSection(){
         {
             title: "Aug 2023 - Feb 2024",
             content: (
-                <div className="mb-4 transition-transform hover:scale-[1.025] hover:shadow-xl">
+                <div className="mb-4 transition-transform hover:scale-[1.025] hover:shadow-xl z-20">
                     <div className="flex flex-col items-start justify-start mb-2">
                         <div className="flex items-center gap-2 mb-1">
                             <span className="inline-block w-2 h-6 rounded bg-gradient-to-b from-purple-500 to-blue-500 mr-2"></span>
@@ -81,6 +82,7 @@ export default function ExperienceSection(){
             <MorphingText texts={texts} />
             <Timeline data={data} />
             <ShootingStars/>
+            <StarsBackground/>
         </div>
     )
 }

@@ -74,7 +74,7 @@ export default function HeroSection() {
                         <Button variant="outline" className="transition-all duration-1000 hover:scale-105 hover:shadow-lg hover:border-gradient-to-r hover:from-blue-400 hover:to-purple-500">
                             <span className="inline-flex items-center gap-2">
                                 <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" className="inline-block"><path d="M5 12l5-5 5 5" /></svg>
-                                <a href="#">View My Works</a>
+                                <a href="#projects">View My Works</a>
                             </span>
                         </Button>
                         <Button variant="ghost" className="transition-all duration-1000 hover:scale-105 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white">
