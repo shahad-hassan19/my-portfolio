@@ -8,18 +8,18 @@ import TestimonialsSection from "./_components/TestimonialsSection";
 import ContactSection from "./_components/ContactSection";
 import FooterSection from "./_components/FooterSection";
 
-export default function Home() {
+export default function Home(): JSX.Element {
   return (
     <div className="min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02]">
-      <MyNavbar/>
-      <HeroSection/>
-      <AboutSection/>
-      <SkillsSection/>
-      <ProjectsSection/>
-      <ExperienceSection/>
-      <TestimonialsSection/>
-      <ContactSection/>
-      <FooterSection/>
+      <MyNavbar />
+      <HeroSection />
+      <AboutSection />
+      <SkillsSection />
+      <ProjectsSection />
+      <ExperienceSection />
+      <TestimonialsSection />
+      <ContactSection />
+      <FooterSection />
     </div>
   );
 }
