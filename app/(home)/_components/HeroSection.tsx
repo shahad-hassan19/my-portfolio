@@ -10,7 +10,6 @@ import { Button } from "@/components/ui/button";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { ContainerTextFlip } from "@/components/ui/container-text-flip";
-import { ColourfulText } from "@/components/ui/colorful-text";
 
 // Constants
 const CODE_SNIPPET = `
@@ -65,17 +64,17 @@ export default function HeroSection(): JSX.Element {
                         className="text-3.25xl lg:text-4xl xl:text-4.5xl opacity-90 font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50 drop-shadow-[0_2px_12px_rgba(255,255,255,0.15)]"
                         style={{ textShadow: '0 2px 24px rgba(255,255,255,0.15)' }}
                     >
-                        Hi, I&apos;m <ColourfulText text="SHAHAD HASSAN" />
+                        Hi, I&apos;m <span className="text-[#2AA9D2] whitespace-pre font-sans text-2xl md:text-4xl tracking-tight">SHAHAD HASSAN</span>
                     </motion.h1>
 
                     <motion.h1
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-                        className="font-extrabold tracking-tight text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 bg-opacity-50 mb-6"
+                        className="text-2xl md:text-4xl tracking-tight text-center  mb-6"
                         style={{ wordBreak: 'break-word', overflow: 'hidden' }}
                     >
-                        <span className="text-4xl">a</span>
+                        <span className="font-bold">a</span>
                         <ContainerTextFlip words={FLIP_WORDS} />
                     </motion.h1>
 
