@@ -112,11 +112,11 @@ export default function ContactSection(){
                         </p>
                     </div>
                     <div className="flex justify-center lg:justify-start align-items-center gap-x-5 font-bold pt-12 text-2xl">
-                        <a className="hover:text-blue-900" href="https://www.facebook.com/shahad.chauhangurjar.9" rel='noreferrer' target='_blank' ><FontAwesomeIcon icon={faFacebook}/></a>
-                        <a className="hover:text-blue-900" href="https://www.linkedin.com/in/shahad-hassan-82287a220" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faLinkedin}/></a>
-                        <a className="hover:text-blue-900" href="https://twitter.com/HassanShahad019m" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faXTwitter}/></a>
-                        <a className="hover:text-blue-900" href="https://github.com/shahad-hassan19" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faGithub}/></a>
-                        <a className="hover:text-blue-900" href="https://www.instagram.com/shahad_chauhan019/" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faInstagram}/></a>
+                        <a className="hover:text-[#FACC15] transition-all duration-700" href="https://www.facebook.com/shahad.chauhangurjar.9" rel='noreferrer' target='_blank' ><FontAwesomeIcon icon={faFacebook}/></a>
+                        <a className="hover:text-[#FACC15] transition-all duration-700" href="https://www.linkedin.com/in/shahad-hassan-82287a220" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faLinkedin}/></a>
+                        <a className="hover:text-[#FACC15] transition-all duration-700" href="https://twitter.com/HassanShahad019m" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faXTwitter}/></a>
+                        <a className="hover:text-[#FACC15] transition-all duration-700" href="https://github.com/shahad-hassan19" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faGithub}/></a>
+                        <a className="hover:text-[#FACC15] transition-all duration-700" href="https://www.instagram.com/shahad_chauhan019/" rel='noreferrer' target='_blank'><FontAwesomeIcon icon={faInstagram}/></a>
                     </div>
                 </motion.div>
                 <motion.div
