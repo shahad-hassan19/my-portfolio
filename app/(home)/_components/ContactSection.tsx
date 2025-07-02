@@ -74,7 +74,7 @@ export default function ContactSection(){
     ];
 
     return(
-        <div id='contact-me' className="min-h-[40rem] rounded-md pt-40 pb-20 bg-black flex flex-col items-center justify-center gap-10 relative w-full px-4 md:px-6 lg:px-8 xl:px-24 z-50">
+        <div id='contact-me' className="min-h-[40rem] rounded-md pb-20 bg-black flex flex-col items-center justify-center gap-10 relative w-full px-4 md:px-6 lg:px-8 xl:px-24 z-50">
             <motion.div
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}

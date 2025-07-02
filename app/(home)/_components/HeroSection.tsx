@@ -39,7 +39,7 @@ export default function HeroSection() {
     `;
 
     return (
-        <div className="min-h-[40rem] w-full rounded-md flex items-center justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+        <div className="min-h-[40rem] pt-10 pb-40 w-full rounded-md flex items-center justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
             {/* Animated stars background */}
             <StarsBackground className="z-0 opacity-60" />
             <Spotlight

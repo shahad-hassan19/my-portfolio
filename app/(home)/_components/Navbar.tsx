@@ -11,40 +11,59 @@ import {
 } from "@/components/ui/resizable-navbar";
 import Image from "next/image";
 import NavLogo from "../../../public/favicon_io/favicon-32x32.png"
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function MyNavbar() {
-    const navItems = [
-        {
-            name: "About",
-            link: "about-me",
-        },
-        {
-            name: "Skills",
-            link: "skills",
-        },
-        {
-            name: "Projects",
-            link: "projects",
-        },
-        {
-          name: "Experience",
-          link: "experience",
-        },
-        {
-            name: "Testimonials",
-            link: "testimonials",
-        },
-        {
-            name: "Contact",
-            link: "contact-me"
-        }
-    ];
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+      const handleScroll = () => {
+          if (typeof window !== "undefined") {
+              const currentScrollY = window.scrollY;
+              setIsVisible(currentScrollY < lastScrollY.current || currentScrollY < 88);
+              lastScrollY.current = currentScrollY;
+          }
+      };
+      if (typeof window !== "undefined") {
+          window.addEventListener("scroll", handleScroll);
+          return () => {
+              window.removeEventListener("scroll", handleScroll);
+          };
+      }
+  }, []);
+
+  const navItems = [
+    {
+      name: "About",
+      link: "about-me",
+    },
+    {
+      name: "Skills",
+      link: "skills",
+    },
+    {
+      name: "Projects",
+      link: "projects",
+    },
+    {
+      name: "Experience",
+      link: "experience",
+    },
+    {
+      name: "Testimonials",
+      link: "testimonials",
+    },
+    {
+      name: "Contact",
+      link: "contact-me"
+    }
+  ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <div className="relative w-full">
+    <div className={`z-50 fixed top-0 transition-all duration-300 ease-in-out w-full ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>

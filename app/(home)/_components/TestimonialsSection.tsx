@@ -41,7 +41,7 @@ export default function TestimonialsSection(){
     ];
 
     return(
-        <div id='testimonials' className="min-h-[40rem] rounded-md pt-40 bg-black flex flex-col items-center justify-center gap-10 relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
+        <div id='testimonials' className="min-h-[40rem] rounded-md pb-40 bg-black flex flex-col items-center justify-center gap-10 relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
             <motion.div
                 initial={{ x: 100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
