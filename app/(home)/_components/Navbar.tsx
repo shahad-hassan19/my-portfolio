@@ -11,6 +11,7 @@ import {
   NavItems,
 } from "@/components/ui/resizable-navbar";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 // Constants
@@ -68,12 +69,14 @@ export function MyNavbar(): JSX.Element {
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
-          <Image
-            src="/favicon_io/favicon-32x32.png"
-            alt="Shahad-Hassan"
-            width={32}
-            height={32}
-          />
+          <Link href="/" className="cursor-pointer z-10">
+            <Image
+              src="/favicon_io/favicon-32x32.png"
+              alt="Shahad-Hassan"
+              width={32}
+              height={32}
+            />
+          </Link>
           <div className="flex gap-4">
             <NavItems items={NAV_ITEMS} />
           </div>
@@ -93,13 +96,15 @@ export function MyNavbar(): JSX.Element {
         {/* Mobile Navigation */}
         <MobileNav>
           <MobileNavHeader>
-            <Image
-              src="/favicon_io/favicon-32x32.png"
-              alt="Shahad-Hassan"
-              className="h-10 w-10"
-              width={40}
-              height={40}
-            />
+            <Link href="/" className="cursor-pointer z-10">
+              <Image
+                src="/favicon_io/favicon-32x32.png"
+                alt="Shahad-Hassan"
+                className="h-10 w-10"
+                width={40}
+                height={40}
+              />
+            </Link>
             <MobileNavToggle
               isOpen={isMobileMenuOpen}
               onClick={handleMobileMenuToggle}

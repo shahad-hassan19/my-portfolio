@@ -74,7 +74,7 @@ export default function AboutSection(): JSX.Element {
                 <MorphingText texts={MORPHING_TEXTS} />
             </motion.div>
 
-            <div className="mt-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            <div className="mt-10 w-full grid grid-cols-1 xl:grid-cols-2 gap-8 items-stretch">
                 {/* Intro Section */}
                 <motion.div
                     initial={{ x: -100, opacity: 0 }}
@@ -96,7 +96,7 @@ export default function AboutSection(): JSX.Element {
                         initial={{ x: 100, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
-                        className="flex-1 h-full min-h-[300px] bg-gradient-to-br from-yellow-50/10 via-yellow-100/5 to-neutral-900/80 border border-yellow-400/30 rounded-md p-3 md:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-start justify-center lg:justify-start min-w-[260px] mx-auto"
+                        className="flex-1 h-full min-h-[300px] bg-gradient-to-br from-yellow-50/10 via-yellow-100/5 to-neutral-900/80 border border-yellow-400/30 rounded-md p-3 md:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col items-start justify-center lg:justify-start w-full md:min-w-[260px] mx-auto"
                     >
                         <div className="flex items-center gap-2 mb-3">
                             <h3 className="text-2xl font-bold text-yellow-400 tracking-wide inline-flex items-center gap-1">
