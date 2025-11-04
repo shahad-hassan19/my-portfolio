@@ -128,9 +128,10 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         <a
           onMouseEnter={() => setHovered(idx)}
           onClick={onItemClick}
-          className="relative px-4 py-2 text-neutral-300 group"
+          className="relative px-4 py-3 text-neutral-300 group"
           key={`link-${idx}`}
           href={`#${item.link}`}
+          aria-label={item.name}
         >
           {hovered === idx && (
             <motion.div
@@ -222,10 +223,20 @@ export const MobileNavToggle = ({
   isOpen: boolean;
   onClick: () => void;
 }) => {
-  return isOpen ? (
-    <IconX className="text-white" onClick={onClick} />
-  ) : (
-    <IconMenu2 className="text-white" onClick={onClick} />
+  return (
+    <button
+      type="button"
+      aria-label={isOpen ? "Close menu" : "Open menu"}
+      aria-expanded={isOpen}
+      onClick={onClick}
+      className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      {isOpen ? (
+        <IconX className="text-white" aria-hidden="true" />
+      ) : (
+        <IconMenu2 className="text-white" aria-hidden="true" />
+      )}
+    </button>
   );
 };
 

@@ -1,14 +1,12 @@
 "use client";
 
 import React from "react";
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import dynamic from "next/dynamic";
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { motion } from "framer-motion";
 
 import { Spotlight } from "@/components/ui/Spotlight";
 import { Button } from "@/components/ui/button";
-import { ShootingStars } from "@/components/ui/shooting-stars";
-import { StarsBackground } from "@/components/ui/stars-background";
 import { ContainerTextFlip } from "@/components/ui/container-text-flip";
 
 // Constants
@@ -45,11 +43,33 @@ const SYNTAX_HIGHLIGHTER_STYLE = {
     fontFamily: 'ui-monospace,SFMono-Regular,Consolas,monospace',
 };
 
+const LazySyntaxHighlighter = dynamic(
+    () => import('react-syntax-highlighter').then((m) => m.Prism),
+    {
+        ssr: false,
+        loading: () => (
+            <pre style={SYNTAX_HIGHLIGHTER_STYLE} className="overflow-x-auto text-[15px] leading-relaxed font-mono bg-transparent">
+                {CODE_SNIPPET.trim()}
+            </pre>
+        ),
+    }
+);
+
+const LazyStarsBackground = dynamic(
+    () => import("@/components/ui/stars-background").then((m) => m.StarsBackground),
+    { ssr: false }
+);
+
+const LazyShootingStars = dynamic(
+    () => import("@/components/ui/shooting-stars").then((m) => m.ShootingStars),
+    { ssr: false }
+);
+
 export default function HeroSection(): JSX.Element {
     return (
         <div className="min-h-[40rem] pt-10 pb-40 w-full rounded-md flex items-center justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
             {/* Animated stars background */}
-            <StarsBackground className="z-0" />
+            <LazyStarsBackground className="z-0 hidden md:block" />
             <Spotlight
                 className="-top-40 left-0 md:left-60 md:-top-20 z-10"
                 fill="white"
@@ -87,28 +107,32 @@ export default function HeroSection(): JSX.Element {
 
                     <div className="flex flex-col md:flex-row gap-4 opacity-90 font-bold mt-2">
                         <Button
+                            asChild
+                            aria-label="View my projects"
                             variant="outline"
                             className="transition-all duration-1000 hover:scale-105 hover:shadow-lg hover:border-gradient-to-r hover:from-blue-400 hover:to-purple-500"
                         >
-                            <span className="inline-flex items-center gap-2">
+                            <a href="#projects" className="inline-flex items-center gap-2">
                                 <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" className="inline-block">
                                     <path d="M5 12l5-5 5 5" />
                                 </svg>
-                                <a href="#projects">View My Works</a>
-                            </span>
+                                <span>View My Works</span>
+                            </a>
                         </Button>
 
                         <Button
+                            asChild
+                            aria-label="Contact me"
                             variant="ghost"
                             className="transition-all duration-1000 hover:scale-105 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:text-white"
                         >
-                            <span className="inline-flex items-center gap-2">
+                            <a href="#contact-me" className="inline-flex items-center gap-2">
                                 <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" className="inline-block">
                                     <circle cx="10" cy="10" r="8" />
                                     <path d="M10 6v4l2 2" />
                                 </svg>
-                                <a href="#contact-me">Contact Me</a>
-                            </span>
+                                <span>Contact Me</span>
+                            </a>
                         </Button>
                     </div>
                 </div>
@@ -133,19 +157,18 @@ export default function HeroSection(): JSX.Element {
                             <span className="text-white">shahadProfile.ts</span>
                         </div>
 
-                        <SyntaxHighlighter
+                        <LazySyntaxHighlighter
                             language="javascript"
                             style={dracula}
                             customStyle={SYNTAX_HIGHLIGHTER_STYLE}
                             className="overflow-x-auto text-[15px] leading-relaxed font-mono bg-transparent"
                         >
                             {CODE_SNIPPET.trim()}
-                        </SyntaxHighlighter>
+                        </LazySyntaxHighlighter>
                     </div>
                 </motion.div>
             </div>
-
-            <ShootingStars />
+            <LazyShootingStars className="hidden md:block" />
         </div>
     );
 }

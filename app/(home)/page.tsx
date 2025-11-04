@@ -1,12 +1,36 @@
+import dynamic from "next/dynamic";
+import { SectionSkeleton, TwoColumnMediaSkeleton, SkillsSectionSkeleton } from "@/components/ui/skeletons";
 import { MyNavbar } from "./_components/Navbar";
 import HeroSection from "./_components/HeroSection";
 import AboutSection from "./_components/AboutSection";
-import SkillsSection from "./_components/SkillsSection";
-import ProjectsSection from "./_components/ProjectsSection";
-import ExperienceSection from "./_components/ExperienceSection";
-import TestimonialsSection from "./_components/TestimonialsSection";
-import ContactSection from "./_components/ContactSection";
-import FooterSection from "./_components/FooterSection";
+const SkillsSection = dynamic(() => import("./_components/SkillsSection"), {
+  ssr: false,
+  loading: () => <SkillsSectionSkeleton className="py-20" />,
+});
+const ProjectsSection = dynamic(() => import("./_components/ProjectsSection"), {
+  ssr: false,
+  loading: () => <SectionSkeleton className="py-20" />,
+});
+const ExperienceSection = dynamic(() => import("./_components/ExperienceSection"), {
+  ssr: false,
+  loading: () => <SectionSkeleton className="py-20" />,
+});
+const TestimonialsSection = dynamic(() => import("./_components/TestimonialsSection"), {
+  ssr: false,
+  loading: () => <TwoColumnMediaSkeleton />,
+});
+const ContactSection = dynamic(() => import("./_components/ContactSection"), {
+  ssr: false,
+  loading: () => <SectionSkeleton className="py-20" />,
+});
+const FooterSection = dynamic(() => import("./_components/FooterSection"), {
+  ssr: false,
+  loading: () => (
+    <div className="py-12 px-6">
+      <SectionSkeleton />
+    </div>
+  ),
+});
 
 export default function Home(): JSX.Element {
   return (

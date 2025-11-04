@@ -81,14 +81,13 @@ export function MyNavbar(): JSX.Element {
             <NavItems items={NAV_ITEMS} />
           </div>
           <div className="flex items-center gap-4">
-            <NavbarButton variant="primary">
-              <a
-                href={CV_LINK}
-                rel="noreferrer"
-                target="_blank"
-              >
-                Download CV
-              </a>
+            <NavbarButton
+              href={CV_LINK}
+              rel="noreferrer"
+              target="_blank"
+              variant="primary"
+            >
+              Download CV
             </NavbarButton>
           </div>
         </NavBody>
@@ -120,24 +119,22 @@ export function MyNavbar(): JSX.Element {
                 key={`mobile-link-${idx}`}
                 href={`#${item.link}`}
                 onClick={handleMobileMenuClose}
-                className="relative text-neutral-300"
+                className="relative text-neutral-300 px-4 py-3 rounded-md"
+                aria-label={item.name}
               >
                 <span className="block">{item.name}</span>
               </a>
             ))}
             <div className="flex w-full flex-col gap-4">
               <NavbarButton
+                href={CV_LINK}
+                rel="noreferrer"
+                target="_blank"
                 onClick={handleMobileMenuClose}
                 variant="primary"
                 className="w-full"
               >
-                <a
-                  href={CV_LINK}
-                  rel="noreferrer"
-                  target="_blank"
-                >
-                  Download CV
-                </a>
+                Download CV
               </NavbarButton>
             </div>
           </MobileNavMenu>
