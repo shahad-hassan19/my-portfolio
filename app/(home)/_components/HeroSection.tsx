@@ -69,7 +69,7 @@ export default function HeroSection(): JSX.Element {
     return (
         <div className="min-h-[40rem] pt-10 pb-40 w-full rounded-md flex items-center justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
             {/* Animated stars background */}
-            <LazyStarsBackground className="z-0 hidden md:block" />
+            <LazyStarsBackground />
             <Spotlight
                 className="-top-40 left-0 md:left-60 md:-top-20 z-10"
                 fill="white"
@@ -168,7 +168,7 @@ export default function HeroSection(): JSX.Element {
                     </div>
                 </motion.div>
             </div>
-            <LazyShootingStars className="hidden md:block" />
+            <LazyShootingStars />
         </div>
     );
 }

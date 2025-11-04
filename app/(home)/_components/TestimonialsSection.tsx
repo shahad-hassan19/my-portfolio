@@ -1,10 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 
 import MorphingText from "@/components/ui/morphing-text";
-import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+const AnimatedTestimonials = dynamic(
+    () => import("@/components/ui/animated-testimonials").then(m => m.AnimatedTestimonials),
+    { ssr: false }
+);
 import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 
@@ -40,6 +44,25 @@ export default function TestimonialsSection(){
         "What my Mentors say",
     ];
 
+    const [inView, setInView] = useState(false);
+    const ref = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        if (!ref.current) return;
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const entry = entries[0];
+                if (entry.isIntersecting) {
+                    setInView(true);
+                    observer.disconnect();
+                }
+            },
+            { rootMargin: "200px 0px", threshold: 0.1 }
+        );
+        observer.observe(ref.current);
+        return () => observer.disconnect();
+    }, []);
+
     return(
         <div id='testimonials' className="min-h-[40rem] rounded-md pb-40 bg-black flex flex-col items-center justify-center gap-10 relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
             <motion.div
@@ -56,8 +79,23 @@ export default function TestimonialsSection(){
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
                 className="w-full z-20"
+                ref={ref}
             >
-                <AnimatedTestimonials testimonials={testimonials} />
+                {inView ? (
+                    <AnimatedTestimonials testimonials={testimonials} />
+                ) : (
+                    <div className="max-w-sm md:max-w-4xl mx-auto antialiased font-sans px-4 md:px-8 lg:px-12 py-20">
+                        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-20">
+                            <div className="relative h-80 w-full rounded-3xl bg-[#23272f]" />
+                            <div className="space-y-4">
+                                <div className="h-6 w-40 rounded-md bg-[#23272f]" />
+                                <div className="h-4 w-full rounded-md bg-[#23272f]" />
+                                <div className="h-4 w-5/6 rounded-md bg-[#23272f]" />
+                                <div className="h-4 w-2/3 rounded-md bg-[#23272f]" />
+                            </div>
+                        </div>
+                    </div>
+                )}
             </motion.div>
             <ShootingStars />
             <StarsBackground />
