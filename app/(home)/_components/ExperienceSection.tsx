@@ -7,6 +7,7 @@ import MorphingText from "@/components/ui/morphing-text";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { Timeline } from "@/components/ui/timeline";
 import { StarsBackground } from "@/components/ui/stars-background";
+import Link from "next/link";
 
 
 export default function ExperienceSection(){
@@ -26,7 +27,7 @@ export default function ExperienceSection(){
                             <span className="inline-block w-2 h-6 rounded bg-gradient-to-b from-purple-500 to-blue-500 mr-2"></span>
                             <p className="text-lg font-bold text-white drop-shadow-sm">Full Stack Developer</p>
                         </div>
-                        <p className="mb-2 text-xs font-semibold md:text-sm text-blue-400">SoftLes</p>
+                        <Link href="https://softles.in" target="_blank" className="cursor-pointer transition-all duration-500 hover:underline underline-offset-2 z-20 mb-2 text-xs font-semibold md:text-sm text-blue-400">SoftLes</Link>
                     </div>
                     <ul className="list-disc list-inside text-xs font-normal md:text-sm text-neutral-200 space-y-2 pl-2">
                         <li>Developed and deployed front-end and full-stack platforms with secure authentication, handling role-based controls using Next.js, React.js and Node.js.</li>
@@ -46,7 +47,7 @@ export default function ExperienceSection(){
                             <span className="inline-block w-2 h-6 rounded bg-gradient-to-b from-purple-500 to-blue-500 mr-2"></span>
                             <p className="text-lg font-bold text-white drop-shadow-sm">Front End Developer</p>
                         </div>
-                        <p className="mb-2 text-xs font-semibold md:text-sm text-blue-400">SoftLes</p>
+                        <Link href="https://softles.in" target="_blank" className="cursor-pointer transition-all duration-500 hover:underline underline-offset-2 z-20 mb-2 text-xs font-semibold md:text-sm text-blue-400">SoftLes</Link>
                     </div>
                     <ul className="list-disc list-inside text-xs font-normal md:text-sm text-neutral-200 space-y-2 pl-2">
                         <li>Contributed to the development of cutting-edge web applications using modern frontend technologies such as React.js, ensuring high performance and user satisfaction</li>
@@ -65,7 +66,7 @@ export default function ExperienceSection(){
                             <span className="inline-block w-2 h-6 rounded bg-gradient-to-b from-purple-500 to-blue-500 mr-2"></span>
                             <p className="text-lg font-bold text-white drop-shadow-sm">Front End Developer Intern</p>
                         </div>
-                        <p className="mb-2 text-xs font-semibold md:text-sm text-blue-400">SoftLes</p>
+                        <Link href="https://softles.in" target="_blank" className="cursor-pointer transition-all duration-500 hover:underline underline-offset-2 z-20 mb-2 text-xs font-semibold md:text-sm text-blue-400">SoftLes</Link>
                     </div>
                     <ul className="list-disc list-inside text-xs font-normal md:text-sm text-neutral-200 space-y-2 pl-2">
                         <li>Acquired proficiency in React.js through hands-on training, practical exercises and acquired valuable experience in version control systems like Git.</li>
