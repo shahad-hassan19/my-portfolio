@@ -2,58 +2,59 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
+// import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { motion } from "framer-motion";
 
 import { Spotlight } from "@/components/ui/Spotlight";
 import { Button } from "@/components/ui/button";
 import { ContainerTextFlip } from "@/components/ui/container-text-flip";
+import Image from "next/image";
 
 // Constants
-const CODE_SNIPPET = `
-const profile = {
-    name: 'Shahad Hassan',
-    title: 'Full Stack Developer',
-    contact: {
-        phone: '+91-6398223144',
-        email: 'shahadg1983@gmail.com',
-        github: 'github.com/shahad-hassan19'
-    },
-    skills: [
-        'NextJS', 'TypeScript', 'JavaScript', 'React',
-        'NodeJS', 'ExpressJS', 'Mongoose', 'TailwindCSS',
-        'Figma', 'Postman', 'Prisma', 'Firebase',
-        'Vercel', 'Docker', 'GitHub', 'Git', 'MongoDB',
-        'Bootstrap', 'HTML5', 'CSS3', 'Sass'
-    ],
-    hireable: function () {
-        return this.skills.length > 10
-            && this.experience
-    }
-}
-`;
+// const CODE_SNIPPET = `
+// const profile = {
+//     name: 'Shahad Hassan',
+//     title: 'Full Stack Developer',
+//     contact: {
+//         phone: '+91-6398223144',
+//         email: 'shahadg1983@gmail.com',
+//         github: 'github.com/shahad-hassan19'
+//     },
+//     skills: [
+//         'NextJS', 'TypeScript', 'JavaScript', 'React',
+//         'NodeJS', 'ExpressJS', 'Mongoose', 'TailwindCSS',
+//         'Figma', 'Postman', 'Prisma', 'Firebase',
+//         'Vercel', 'Docker', 'GitHub', 'Git', 'MongoDB',
+//         'Bootstrap', 'HTML5', 'CSS3', 'Sass'
+//     ],
+//     hireable: function () {
+//         return this.skills.length > 10
+//             && this.experience
+//     }
+// }
+// `;
 
 const FLIP_WORDS = ["Full Stack Developer", "Frontend Developer"];
 
-const SYNTAX_HIGHLIGHTER_STYLE = {
-    background: 'transparent',
-    fontSize: 15,
-    padding: '12px 16px',
-    borderRadius: '1rem',
-    fontFamily: 'ui-monospace,SFMono-Regular,Consolas,monospace',
-};
+// const SYNTAX_HIGHLIGHTER_STYLE = {
+//     background: 'transparent',
+//     fontSize: 15,
+//     padding: '12px 16px',
+//     borderRadius: '1rem',
+//     fontFamily: 'ui-monospace,SFMono-Regular,Consolas,monospace',
+// };
 
-const LazySyntaxHighlighter = dynamic(
-    () => import('react-syntax-highlighter').then((m) => m.Prism),
-    {
-        ssr: false,
-        loading: () => (
-            <pre style={SYNTAX_HIGHLIGHTER_STYLE} className="overflow-x-auto text-[15px] leading-relaxed font-mono bg-transparent">
-                {CODE_SNIPPET.trim()}
-            </pre>
-        ),
-    }
-);
+// const LazySyntaxHighlighter = dynamic(
+//     () => import('react-syntax-highlighter').then((m) => m.Prism),
+//     {
+//         ssr: false,
+//         loading: () => (
+//             <pre style={SYNTAX_HIGHLIGHTER_STYLE} className="overflow-x-auto text-[15px] leading-relaxed font-mono bg-transparent">
+//                 {CODE_SNIPPET.trim()}
+//             </pre>
+//         ),
+//     }
+// );
 
 const LazyStarsBackground = dynamic(
     () => import("@/components/ui/stars-background").then((m) => m.StarsBackground),
@@ -67,7 +68,7 @@ const LazyShootingStars = dynamic(
 
 export default function HeroSection(): JSX.Element {
     return (
-        <div className="min-h-[40rem] pt-10 pb-40 w-full rounded-md flex items-center justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
+        <div className="min-h-screen pt-10 w-full rounded-md flex items-center justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden">
             {/* Animated stars background */}
             <LazyStarsBackground />
             <Spotlight
@@ -75,8 +76,8 @@ export default function HeroSection(): JSX.Element {
                 fill="white"
             />
 
-            <div className="flex flex-col lg:flex-row items-center justify-between w-full py-16 px-6 gap-12 relative z-20 sm:px-4 md:px-6 lg:px-8 xl:px-24">
-                <div className="flex flex-col items-center md:items-start w-full lg:w-1/2 max-w-xl">
+            <div className="max-w-8xl flex flex-col-reverse lg:flex-row items-center justify-between w-full py-16 px-6 gap-12 relative z-20 sm:px-4 md:px-6 lg:px-8 xl:px-24">
+                <div className="flex flex-col items-center lg:items-start w-full lg:w-1/2 max-w-xl">
                     <motion.h1
                         initial={{ opacity: 0, y: -30 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -91,7 +92,7 @@ export default function HeroSection(): JSX.Element {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-                        className="text-2xl md:text-4xl tracking-tight text-center  mb-6"
+                        className="text-2xl md:text-4xl tracking-tight text-center mb-6"
                         style={{ wordBreak: 'break-word', overflow: 'hidden' }}
                     >
                         <span className="font-bold">a</span>
@@ -138,19 +139,32 @@ export default function HeroSection(): JSX.Element {
                 </div>
 
                 <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
-                className="relative flex items-center justify-center w-full lg:w-1/2 max-w-xl"
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
+                    className="relative flex items-center justify-center lg:justify-end w-full lg:w-1/2 max-w-xl"
                 >
-                    <div
-                        className="bg-[#0d1117]/80 overflow-hidden shadow-2xl backdrop-blur-md border-2 border-transparent bg-clip-padding p-1 w-full"
-                        style={{
-                        borderImage: 'linear-gradient(135deg, #6EE7B7 0%, #3B82F6 50%, #9333EA 100%) 1',
-                        boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-                        }}
-                    >
-                        <div className="flex items-center gap-2 p-2 bg-[#161b22]/80">
+                    <div className="w-full flex items-center justify-center lg:justify-end">
+                        <div
+                            className="relative rounded-full p-[3px]"
+                            style={{
+                                background: 'linear-gradient(135deg, #6EE7B7 0%, #3B82F6 50%, #9333EA 100%)',
+                                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
+                            }}
+                        >
+                            <div className="relative w-52 h-52 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-96 lg:h-96 rounded-full overflow-hidden bg-black">
+                                <Image
+                                    src="/profile-pic.png"
+                                    alt="Shahad Hassan"
+                                    width={400}
+                                    height={400}
+                                    className="w-full h-full object-cover rounded-full"
+                                    priority
+                                />
+                            </div>
+                        </div>
+                    </div>
+                       {/* <div className="flex items-center gap-2 p-2 bg-[#161b22]/80">
                             <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                             <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
@@ -164,8 +178,7 @@ export default function HeroSection(): JSX.Element {
                             className="overflow-x-auto text-[15px] leading-relaxed font-mono bg-transparent"
                         >
                             {CODE_SNIPPET.trim()}
-                        </LazySyntaxHighlighter>
-                    </div>
+                        </LazySyntaxHighlighter> */}
                 </motion.div>
             </div>
             <LazyShootingStars />
