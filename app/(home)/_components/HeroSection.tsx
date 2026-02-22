@@ -34,7 +34,7 @@ import Image from "next/image";
 // }
 // `;
 
-const FLIP_WORDS = ["Full Stack Developer", "Frontend Developer"];
+const FLIP_WORDS = ["Full Stack Developer", "Web Developer"];
 
 // const SYNTAX_HIGHLIGHTER_STYLE = {
 //     background: 'transparent',

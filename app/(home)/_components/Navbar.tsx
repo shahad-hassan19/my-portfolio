@@ -24,7 +24,7 @@ const NAV_ITEMS: NavItem[] = [
   { name: "Contact", link: "contact-me" }
 ];
 
-const CV_LINK = "https://drive.google.com/file/d/1dzCH2b1mQIyndmqdNlR7tr7cXOu3S_AW/view?usp=sharing";
+const CV_LINK = "https://drive.google.com/file/d/1NBdxMIM3zj7Bp5ij0w0CICxpFvGhVaNT/view?usp=sharing";
 const SCROLL_THRESHOLD = 88;
 
 interface NavItem {

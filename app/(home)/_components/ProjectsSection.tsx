@@ -19,6 +19,7 @@ import {
   IconChartBar,
   IconBrandPrisma,
 } from "@tabler/icons-react";
+import { SiRazorpay } from "react-icons/si";
 
 const projects = [
   {
@@ -32,6 +33,7 @@ const projects = [
       { label: "Tailwind CSS" },
       { label: "MongoDB" },
       { label: "Prisma" },
+      { label: "Razorpay" },
     ],
   },
   {
@@ -46,12 +48,13 @@ const projects = [
     ],
   },
   {
-    title: "Next Music App",
-    description: "Landing page project for learning Next.js and UI design.",
-    image: "/NextMusic.png",
-    url: "https://music-nextjs-sh.vercel.app/",
+    title: "Behavioral Training ERP System",
+    description: "Integrated solution for appointment scheduling, insurance claim tracking, and staff payment management.",
+    image: "/Promethean.png",
+    url: "https://bts-gamma.vercel.app",
     tech: [
       { label: "NextJS" },
+      { label: "TypeScript" },
       { label: "Tailwind CSS" },
     ],
   },
@@ -69,27 +72,6 @@ const projects = [
       { label: "ChartJS" },
     ],
   },
-  {
-    title: "Portfolio Website",
-    description: "My developer portfolio showcasing projects, skills, and experience.",
-    image: "/Portfolio-img.png",
-    url: "https://shahad-hassan.vercel.app/",
-    tech: [
-      { label: "ReactJS" },
-      { label: "TailwindCSS" },
-    ],
-  },
-  {
-    title: "CoinQuotient",
-    description: "Real-time cryptocurrency converter for quick currency conversions and copying results.",
-    image: "/CoinQuotient.png",
-    url: "https://currency-converter-sable-ten.vercel.app/",
-    tech: [
-      { label: "ReactJS" },
-      { label: "Tailwind CSS" },
-      { label: "API Integration" },
-    ],
-  },
 ] as const;
 
 const techIconMap = {
@@ -104,6 +86,7 @@ const techIconMap = {
   Mongoose: IconDatabase,
   ChartJS: IconChartBar,
   "API Integration": IconApi,
+  Razorpay: SiRazorpay,
 };
 
 export default function ProjectsSection(){
