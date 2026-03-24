@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import {
   SiJavascript, SiTypescript, SiReact, SiNextdotjs, SiHtml5, SiCss3, SiTailwindcss, SiBootstrap, SiSass,
   SiNodedotjs, SiMongoose, SiExpress, SiMongodb, SiPrisma, SiFirebase, SiVercel, SiDocker, SiGit, SiGithub, SiGitlab,
-  SiFigma, SiPostman, SiNetlify
+  SiFigma, SiPostman, SiNetlify, SiShopify, SiRazorpay,
+  SiNestjs
 } from "react-icons/si";
 import { VscVscode } from "react-icons/vsc";
 import { IconDeviceLaptop, IconDatabase, IconTools, IconCloud as Cloud } from '@tabler/icons-react';
@@ -30,11 +31,13 @@ const SKILL_ICON_MAP: Record<string, { icon: JSX.Element; color: string }> = {
   "TypeScript": { icon: <SiTypescript />, color: "#3178c6" },
   "React JS": { icon: <SiReact />, color: "#61dafb" },
   "Next JS": { icon: <SiNextdotjs />, color: "#000000" },
+  "Nest JS": { icon: <SiNestjs />, color: "#f7df1e" },
   "HTML": { icon: <SiHtml5 />, color: "#e34c26" },
   "CSS": { icon: <SiCss3 />, color: "#1572b6" },
   "Tailwind CSS": { icon: <SiTailwindcss />, color: "#38bdf8" },
   "Bootstrap": { icon: <SiBootstrap />, color: "#7952b3" },
   "Sass": { icon: <SiSass />, color: "#cc6699" },
+  "Shopify": { icon: <SiShopify />, color: "#96bf48" },
   "Node JS": { icon: <SiNodedotjs />, color: "#339933" },
   "Mongoose": { icon: <SiMongoose />, color: "#880000" },
   "Express JS": { icon: <SiExpress />, color: "#000000" },
@@ -50,6 +53,7 @@ const SKILL_ICON_MAP: Record<string, { icon: JSX.Element; color: string }> = {
   "Figma": { icon: <SiFigma />, color: "#f24e1e" },
   "Postman": { icon: <SiPostman />, color: "#ff6c37" },
   "Netlify": { icon: <SiNetlify />, color: "#00C7B7" },
+  "RazorPay": { icon: <SiRazorpay />, color: "#00C7B7" }
 };
 
 const SKILL_CATEGORIES = [
@@ -61,12 +65,12 @@ const SKILL_CATEGORIES = [
   {
     icon: <IconDatabase size={32} />,
     title: "Backend Development",
-    skills: ["Node JS", "Express JS", "Mongoose", "Mongo DB", "Prisma", "Firebase"]
+    skills: ["Nest JS", "Node JS", "Express JS", "Mongoose", "Mongo DB", "Prisma", "Firebase", "Shopify"]
   },
   {
     icon: <IconTools size={32} />,
     title: "Tools & Technologies",
-    skills: ["Figma", "VS Code", "Postman", "Docker", "Git", "Github"]
+    skills: ["Figma", "VS Code", "Postman", "Docker", "Git", "Github", "RazorPay"]
   },
   {
     icon: <Cloud size={32} />,

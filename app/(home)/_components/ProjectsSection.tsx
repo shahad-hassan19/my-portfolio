@@ -19,7 +19,7 @@ import {
   IconChartBar,
   IconBrandPrisma,
 } from "@tabler/icons-react";
-import { SiRazorpay } from "react-icons/si";
+import { SiRazorpay, SiShopify } from "react-icons/si";
 
 const projects = [
   {
@@ -59,17 +59,16 @@ const projects = [
     ],
   },
   {
-    title: "InsightLens",
-    description: "Personal dashboard for data visualization and analytics practice.",
-    image: "/InsightLens.png",
-    url: "https://insight-lens.vercel.app/",
+    title: "Brunswick Fur Food – Headless Shopify Storefront",
+    description: "Headless e-commerce storefront built using Next.js and Shopify Storefront API.",
+    image: "/BFF.png",
+    url: "https://web.brunswickfurfood.com",
     tech: [
-      { label: "ReactJS" },
-      { label: "NodeJS" },
-      { label: "Mongoose" },
-      { label: "MongoDB" },
+      { label: "NextJS" },
+      { label: "TypeScript" },
       { label: "Tailwind CSS" },
-      { label: "ChartJS" },
+      { label: "MongoDB" },
+      { label: "Shopify" },
     ],
   },
 ] as const;
@@ -87,6 +86,7 @@ const techIconMap = {
   ChartJS: IconChartBar,
   "API Integration": IconApi,
   Razorpay: SiRazorpay,
+  Shopify: SiShopify,
 };
 
 export default function ProjectsSection(){
