@@ -154,7 +154,7 @@ export default function HeroSection(): JSX.Element {
                         >
                             <div className="relative w-52 h-52 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-96 lg:h-96 rounded-full overflow-hidden bg-black">
                                 <Image
-                                    src="/profile-pic.png"
+                                    src="/profile-pic-1.png"
                                     alt="Shahad Hassan"
                                     width={400}
                                     height={400}
