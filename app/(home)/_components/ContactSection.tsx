@@ -22,35 +22,14 @@ import MorphingText from "@/components/ui/morphing-text";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 
-// Constants
 const MORPHING_TEXTS = ["Contact Me", "Let's get in touch"];
 
 const SOCIAL_LINKS = [
-    {
-        icon: faFacebook,
-        href: "https://www.facebook.com/shahad.chauhangurjar.9",
-        label: "Facebook"
-    },
-    {
-        icon: faLinkedin,
-        href: "https://www.linkedin.com/in/shahad-hassan-82287a220",
-        label: "LinkedIn"
-    },
-    {
-        icon: faXTwitter,
-        href: "https://twitter.com/HassanShahad019",
-        label: "X (Twitter)"
-    },
-    {
-        icon: faGithub,
-        href: "https://github.com/shahad-hassan19",
-        label: "GitHub"
-    },
-    {
-        icon: faInstagram,
-        href: "https://www.instagram.com/shahad_chauhan019/",
-        label: "Instagram"
-    }
+    { icon: faFacebook, href: "https://www.facebook.com/shahad.chauhangurjar.9", label: "Facebook" },
+    { icon: faLinkedin, href: "https://www.linkedin.com/in/shahad-hassan-82287a220", label: "LinkedIn" },
+    { icon: faXTwitter, href: "https://twitter.com/HassanShahad019", label: "X (Twitter)" },
+    { icon: faGithub, href: "https://github.com/shahad-hassan19", label: "GitHub" },
+    { icon: faInstagram, href: "https://www.instagram.com/shahad_chauhan019/", label: "Instagram" }
 ];
 
 const CONTACT_INFO = {
@@ -65,28 +44,13 @@ const EMAILJS_CONFIG = {
     publicKey: 'mv_jU07IPDEPAdBHe'
 };
 
-// Types
-interface EmailJSResponse {
-    text: string;
-}
-
-interface EmailJSError {
-    text: string;
-    code?: number;
-    status?: string;
-}
-
-interface FormData {
-    userName: string;
-    userMail: string;
-    message: string;
-}
+interface EmailJSResponse { text: string; }
+interface EmailJSError { text: string; code?: number; status?: string; }
+interface FormData { userName: string; userMail: string; message: string; }
 
 export default function ContactSection(): JSX.Element {
     const [formData, setFormData] = useState<FormData>({
-        userName: '',
-        userMail: '',
-        message: ''
+        userName: '', userMail: '', message: ''
     });
     const [loading, setLoading] = useState<boolean>(false);
     const form = useRef<HTMLFormElement>(null);
@@ -101,15 +65,12 @@ export default function ContactSection(): JSX.Element {
 
     const resetForm = (): void => {
         setFormData({ userName: '', userMail: '', message: '' });
-        if (form.current) {
-        form.current.reset();
-        }
+        if (form.current) form.current.reset();
     };
 
     const sendEmail = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         setLoading(true);
-
         if (form.current) {
             emailjs.sendForm(
                 EMAILJS_CONFIG.serviceId,
@@ -121,12 +82,11 @@ export default function ContactSection(): JSX.Element {
                 resetForm();
                 toast.success('Message sent successfully!');
                 setLoading(false);
-                }, (error: EmailJSError) => {
+            }, (error: EmailJSError) => {
                 console.log(error.text);
                 toast.error('Failed to send message. Please try again.');
                 setLoading(false);
-                }
-            );
+            });
         } else {
             console.error("Form reference is undefined");
             setLoading(false);
@@ -134,7 +94,10 @@ export default function ContactSection(): JSX.Element {
     };
 
     return (
-        <div id="contact-me" className="min-h-[40rem] rounded-md pb-20 bg-black flex flex-col items-center justify-center gap-10 relative w-full px-4 md:px-6 lg:px-8 xl:px-24 z-20">
+        <div id="contact-me" className="min-h-[40rem] rounded-md pb-20 section-deepest flex flex-col items-center justify-center gap-10 relative w-full px-4 md:px-6 lg:px-8 xl:px-24 z-20">
+            {/* Ambient glow */}
+            <div className="absolute bottom-1/3 left-1/4 w-[500px] h-[500px] bg-indigo-500/[0.04] rounded-full blur-[120px] pointer-events-none" />
+
             <motion.div
                 initial={{ x: -100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -153,27 +116,27 @@ export default function ContactSection(): JSX.Element {
                     transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
                     className="text-center lg:text-left px-3 w-full z-20"
                 >
-                    <p className="text-justify text-xl mb-12">
+                    <p className="text-justify text-lg text-neutral-300 mb-12 leading-relaxed">
                         &quot;{CONTACT_INFO.description}&quot;
                     </p>
 
-                    <div>
-                        <h3 className="text-xl mb-2 font-semibold">Living in:</h3>
-                        <p className="text-lg mb-4">{CONTACT_INFO.location}</p>
+                    <div className="mb-6">
+                        <h3 className="text-lg mb-1 font-semibold text-indigo-300">Living in:</h3>
+                        <p className="text-base text-neutral-400">{CONTACT_INFO.location}</p>
                     </div>
 
-                    <div>
-                        <h3 className="text-xl mb-2 font-semibold">Call:</h3>
-                        <p className="text-lg mb-4">
-                            <a href="tel:+916398223144">{CONTACT_INFO.phone}</a>
+                    <div className="mb-6">
+                        <h3 className="text-lg mb-1 font-semibold text-indigo-300">Call:</h3>
+                        <p className="text-base text-neutral-400">
+                            <a href="tel:+916398223144" className="hover:text-white transition-colors duration-300">{CONTACT_INFO.phone}</a>
                         </p>
                     </div>
 
-                    <div className="flex justify-center lg:justify-start align-items-center gap-x-5 font-bold pt-12 text-2xl">
+                    <div className="flex justify-center lg:justify-start align-items-center gap-x-5 pt-8 text-2xl">
                         {SOCIAL_LINKS.map((social, index) => (
                             <a
                                 key={index}
-                                className="hover:text-[#FACC15] transition-all duration-700"
+                                className="text-neutral-400 hover:text-indigo-400 transition-all duration-300 hover:scale-110"
                                 href={social.href}
                                 rel="noreferrer"
                                 target="_blank"
@@ -189,11 +152,11 @@ export default function ContactSection(): JSX.Element {
                     initial={{ x: 100, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
-                    className="max-w-md z-20 w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-black"
+                    className="max-w-md z-20 w-full mx-auto glass-card rounded-2xl p-6 md:p-8"
                 >
-                    <form className="my-8" ref={form} onSubmit={sendEmail}>
+                    <form className="my-4" ref={form} onSubmit={sendEmail}>
                         <LabelInputContainer className="mb-4">
-                            <Label htmlFor="name">Name</Label>
+                            <Label htmlFor="name" className="text-neutral-300">Name</Label>
                             <Input
                                 id="name"
                                 name="user_name"
@@ -205,7 +168,7 @@ export default function ContactSection(): JSX.Element {
                         </LabelInputContainer>
 
                         <LabelInputContainer className="mb-4">
-                            <Label htmlFor="email">Email Address</Label>
+                            <Label htmlFor="email" className="text-neutral-300">Email Address</Label>
                             <Input
                                 id="email"
                                 name="user_email"
@@ -216,8 +179,8 @@ export default function ContactSection(): JSX.Element {
                             />
                         </LabelInputContainer>
 
-                        <LabelInputContainer className="mb-4">
-                            <Label htmlFor="message">Message</Label>
+                        <LabelInputContainer className="mb-6">
+                            <Label htmlFor="message" className="text-neutral-300">Message</Label>
                             <Textarea
                                 id="message"
                                 name="message"
@@ -228,7 +191,7 @@ export default function ContactSection(): JSX.Element {
                         </LabelInputContainer>
 
                         <button
-                            className="bg-gradient-to-br relative group/btn from-zinc-900 block bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+                            className="relative group/btn w-full text-white rounded-xl h-11 font-semibold bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-400 hover:to-violet-400 transition-all duration-500 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                             value="send"
                             disabled={!isFormValid() || loading}
                             type="submit"
@@ -236,12 +199,11 @@ export default function ContactSection(): JSX.Element {
                             {loading ? (
                                 "Sending ..."
                             ) : (
-                                <span className="inline-flex items-center justify-center gap-x-1">
-                                <FontAwesomeIcon icon={faTelegram} />
-                                Send
+                                <span className="inline-flex items-center justify-center gap-x-2">
+                                    <FontAwesomeIcon icon={faTelegram} />
+                                    Send Message
                                 </span>
                             )}
-                            <BottomGradient />
                         </button>
                     </form>
                 </motion.div>
@@ -252,15 +214,6 @@ export default function ContactSection(): JSX.Element {
         </div>
     );
 }
-
-const BottomGradient = (): JSX.Element => {
-    return (
-        <>
-            <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-            <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-        </>
-    );
-};
 
 const LabelInputContainer = ({
     children,

@@ -64,7 +64,10 @@ export default function TestimonialsSection(){
     }, []);
 
     return(
-        <div id='testimonials' className="min-h-[40rem] rounded-md pb-40 bg-black flex flex-col items-center justify-center gap-10 relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
+        <div id='testimonials' className="min-h-[40rem] rounded-md pb-40 section-dark flex flex-col items-center justify-center gap-10 relative w-full sm:px-4 md:px-6 lg:px-8 xl:px-24">
+            {/* Ambient glow */}
+            <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-violet-500/[0.03] rounded-full blur-[120px] pointer-events-none" />
+
             <motion.div
                 initial={{ x: 100, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -86,12 +89,12 @@ export default function TestimonialsSection(){
                 ) : (
                     <div className="max-w-sm md:max-w-4xl mx-auto antialiased font-sans px-4 md:px-8 lg:px-12 py-20">
                         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-20">
-                            <div className="relative h-80 w-full rounded-3xl bg-[#23272f]" />
+                            <div className="relative h-80 w-full rounded-3xl bg-white/[0.03]" />
                             <div className="space-y-4">
-                                <div className="h-6 w-40 rounded-md bg-[#23272f]" />
-                                <div className="h-4 w-full rounded-md bg-[#23272f]" />
-                                <div className="h-4 w-5/6 rounded-md bg-[#23272f]" />
-                                <div className="h-4 w-2/3 rounded-md bg-[#23272f]" />
+                                <div className="h-6 w-40 rounded-md bg-white/[0.03]" />
+                                <div className="h-4 w-full rounded-md bg-white/[0.03]" />
+                                <div className="h-4 w-5/6 rounded-md bg-white/[0.03]" />
+                                <div className="h-4 w-2/3 rounded-md bg-white/[0.03]" />
                             </div>
                         </div>
                     </div>

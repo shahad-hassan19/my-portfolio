@@ -30,7 +30,7 @@ const FooterSection = dynamic(() => import("./_components/FooterSection"), {
 
 export default function Home(): JSX.Element {
   return (
-    <div className="min-h-screen bg-black/[0.96] antialiased bg-grid-white/[0.02]">
+    <div className="min-h-screen bg-[#030014] antialiased">
       <MyNavbar />
       <HeroSection />
       <AboutSection />
