@@ -68,8 +68,10 @@ export const Navbar = ({ children, className }: NavbarProps) => {
   return (
     <motion.div
       ref={ref}
-      // IMPORTANT: Change this to class of `fixed` if you want the navbar to be fixed
-      className={cn("sticky inset-x-0 top-20 z-[100] w-full", className)}
+      className={cn(
+        "sticky inset-x-0 top-0 z-[100] w-full min-w-0 max-w-full overflow-visible",
+        className,
+      )}
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
@@ -91,20 +93,19 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         boxShadow: visible
           ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
           : "none",
-        width: visible ? "70%" : "100%",
-        y: visible ? 20 : 0,
+        /* Wider than 70% so bar aligns closer to main content (e.g. projects grid) */
+        width: visible ? "min(92%, 80rem)" : "100%",
+        y: visible ? 12 : 0,
       }}
       transition={{
         type: "spring",
         stiffness: 200,
         damping: 50,
       }}
-      style={{
-        minWidth: "800px",
-      }}
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-8 py-2 lg:flex dark:bg-transparent",
-        visible && "bg-[#030014]/80 border border-white/[0.06]",
+        "relative z-[60] mx-auto hidden min-w-0 w-full max-w-7xl flex-row items-center justify-between gap-3 self-start overflow-visible rounded-full bg-transparent px-4 py-2.5 sm:gap-4 sm:px-6 sm:py-3 lg:flex lg:px-8 dark:bg-transparent",
+        visible &&
+          "bg-background/85 border border-white/[0.08] shadow-[0_8px_32px_hsl(var(--color-2)/0.08)]",
         className,
       )}
     >
@@ -136,10 +137,12 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
           {hovered === idx && (
             <motion.div
               layoutId="hovered"
-              className="absolute inset-0 h-full w-full rounded-full bg-white/[0.08]"
+              className="absolute inset-0 h-full w-full rounded-full bg-primary/15 ring-1 ring-primary/20"
             />
           )}
-          <span className="relative z-20 group-hover:text-white transition-colors duration-200">{item.name}</span>
+          <span className="relative z-20 text-muted-foreground group-hover:text-foreground transition-colors duration-200">
+            {item.name}
+          </span>
         </a>
       ))}
     </motion.div>
@@ -154,11 +157,10 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         boxShadow: visible
           ? "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset"
           : "none",
-        width: visible ? "90%" : "100%",
-        paddingRight: visible ? "12px" : "0px",
-        paddingLeft: visible ? "12px" : "0px",
-        borderRadius: visible ? "4px" : "2rem",
-        y: visible ? 20 : 0,
+        /* Always full width of parent — animating width to 90% caused empty gutter + misaligned menu */
+        width: "100%",
+        borderRadius: visible ? "0.75rem" : "1.5rem",
+        y: 0,
       }}
       transition={{
         type: "spring",
@@ -166,8 +168,9 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden",
-        visible && "bg-[#030014]/80 border border-white/[0.06]",
+        "relative z-50 box-border flex min-w-0 w-full max-w-full flex-col items-stretch justify-between bg-transparent px-3 py-2 sm:px-4 lg:hidden",
+        visible &&
+          "bg-background/85 border border-white/[0.08] shadow-[0_8px_32px_hsl(var(--color-2)/0.08)]",
         className,
       )}
     >
@@ -201,11 +204,16 @@ export const MobileNavMenu = ({
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 200,
+            damping: 50,
+          }}
           className={cn(
-            "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-[#0a0a1a]/95 backdrop-blur-xl border border-white/[0.06] px-4 py-8 shadow-[0_0_30px_rgba(99,102,241,0.06)]",
+            "relative w-full z-50 flex flex-col items-start justify-start gap-4 rounded-xl bg-background/95 backdrop-blur-xl border border-white/[0.08] px-4 py-8 shadow-[0_24px_48px_hsl(var(--color-2)/0.12)] mt-2 overflow-hidden",
             className,
           )}
         >
@@ -229,7 +237,7 @@ export const MobileNavToggle = ({
       aria-label={isOpen ? "Close menu" : "Open menu"}
       aria-expanded={isOpen}
       onClick={onClick}
-      className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      className="p-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       {isOpen ? (
         <IconX className="text-white" aria-hidden="true" />
@@ -262,11 +270,11 @@ export const NavbarButton = ({
 
   const variantStyles = {
     primary:
-      "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30",
-    secondary: "bg-transparent shadow-none text-white",
-    dark: "bg-[#0a0a1a] text-white border border-white/[0.08] shadow-lg",
+      "bg-gradient-to-r from-teal-500 via-violet-500 to-fuchsia-500 text-white shadow-lg shadow-teal-500/20 hover:shadow-violet-500/25 hover:-translate-y-0.5",
+    secondary: "bg-transparent shadow-none text-foreground",
+    dark: "bg-card text-foreground border border-white/[0.1] shadow-lg",
     gradient:
-      "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]",
+      "bg-gradient-to-r from-teal-500 to-violet-500 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.25)_inset]",
   };
 
   return (

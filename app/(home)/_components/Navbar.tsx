@@ -62,8 +62,8 @@ export function MyNavbar(): JSX.Element {
 
   return (
     <div
-      className={`z-50 fixed top-0 transition-all duration-300 ease-in-out w-full ${
-        isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+      className={`fixed left-0 right-0 top-0 z-50 px-2 w-full min-w-0 overflow-visible pt-[max(0.5rem,env(safe-area-inset-top,0px))] pb-1 transition-all duration-300 ease-in-out ${
+        isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
       }`}
     >
       <Navbar>
@@ -119,7 +119,7 @@ export function MyNavbar(): JSX.Element {
                 key={`mobile-link-${idx}`}
                 href={`#${item.link}`}
                 onClick={handleMobileMenuClose}
-                className="relative text-neutral-300 px-4 py-3 rounded-md"
+                className="relative text-muted-foreground px-4 py-3 rounded-md hover:text-foreground transition-colors"
                 aria-label={item.name}
               >
                 <span className="block">{item.name}</span>

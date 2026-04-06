@@ -2,17 +2,17 @@
 
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import emailjs from '@emailjs/browser';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import emailjs from "@emailjs/browser";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faFacebook,
-    faLinkedin,
-    faXTwitter,
-    faInstagram,
-    faGithub,
-    faTelegram
-} from '@fortawesome/free-brands-svg-icons';
-import toast, { Toaster } from 'react-hot-toast';
+  faFacebook,
+  faLinkedin,
+  faXTwitter,
+  faInstagram,
+  faGithub,
+  faTelegram,
+} from "@fortawesome/free-brands-svg-icons";
+import toast, { Toaster } from "react-hot-toast";
 
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -22,209 +22,236 @@ import MorphingText from "@/components/ui/morphing-text";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 
+/* ─── Data ─── */
+
 const MORPHING_TEXTS = ["Contact Me", "Let's get in touch"];
 
 const SOCIAL_LINKS = [
-    { icon: faFacebook, href: "https://www.facebook.com/shahad.chauhangurjar.9", label: "Facebook" },
-    { icon: faLinkedin, href: "https://www.linkedin.com/in/shahad-hassan-82287a220", label: "LinkedIn" },
-    { icon: faXTwitter, href: "https://twitter.com/HassanShahad019", label: "X (Twitter)" },
-    { icon: faGithub, href: "https://github.com/shahad-hassan19", label: "GitHub" },
-    { icon: faInstagram, href: "https://www.instagram.com/shahad_chauhan019/", label: "Instagram" }
+  { icon: faFacebook, href: "https://www.facebook.com/shahad.chauhangurjar.9", label: "Facebook" },
+  { icon: faLinkedin, href: "https://www.linkedin.com/in/shahad-hassan-82287a220", label: "LinkedIn" },
+  { icon: faXTwitter, href: "https://twitter.com/HassanShahad019", label: "X" },
+  { icon: faGithub, href: "https://github.com/shahad-hassan19", label: "GitHub" },
+  { icon: faInstagram, href: "https://www.instagram.com/shahad_chauhan019/", label: "Instagram" },
 ];
 
-const CONTACT_INFO = {
-    location: "Bhoora, Shamli, U.P., India",
-    phone: "(+91) 6398 223 144",
-    description: "I'm thrilled to be on this journey of innovation and discovery, and I'm excited to connect, collaborate, and create something amazing together. Let's build the future, one line of code at a time!"
-};
+const CONTACT_ITEMS = [
+  { emoji: "📍", label: "Location", value: "Shamli, U.P., India", href: undefined as string | undefined, accent: "text-teal-300", ring: "ring-teal-500/25 bg-teal-500/10" },
+  { emoji: "📱", label: "Phone", value: "+91 6398 223 144", href: "tel:+916398223144", accent: "text-rose-300", ring: "ring-rose-500/25 bg-rose-500/10" },
+  { emoji: "✉️", label: "Email", value: "shahadg1983@gmail.com", href: "mailto:shahadg1983@gmail.com", accent: "text-violet-300", ring: "ring-violet-500/25 bg-violet-500/10" },
+];
 
 const EMAILJS_CONFIG = {
-    serviceId: 'service_x02jmrm',
-    templateId: 'template_czqjhqp',
-    publicKey: 'mv_jU07IPDEPAdBHe'
+  serviceId: "service_x02jmrm",
+  templateId: "template_czqjhqp",
+  publicKey: "mv_jU07IPDEPAdBHe",
 };
 
-interface EmailJSResponse { text: string; }
-interface EmailJSError { text: string; code?: number; status?: string; }
-interface FormData { userName: string; userMail: string; message: string; }
+/* ─── Types ─── */
+
+interface FormData { userName: string; userMail: string; message: string }
+
+/* ─── Component ─── */
 
 export default function ContactSection(): JSX.Element {
-    const [formData, setFormData] = useState<FormData>({
-        userName: '', userMail: '', message: ''
-    });
-    const [loading, setLoading] = useState<boolean>(false);
-    const form = useRef<HTMLFormElement>(null);
+  const [formData, setFormData] = useState<FormData>({ userName: "", userMail: "", message: "" });
+  const [loading, setLoading] = useState(false);
+  const form = useRef<HTMLFormElement>(null);
 
-    const handleInputChange = (field: keyof FormData, value: string): void => {
-        setFormData(prev => ({ ...prev, [field]: value }));
-    };
+  const set = (field: keyof FormData, value: string) =>
+    setFormData((p) => ({ ...p, [field]: value }));
 
-    const isFormValid = (): boolean => {
-        return Object.values(formData).every(value => value.trim() !== '');
-    };
+  const valid = Object.values(formData).every((v) => v.trim() !== "");
 
-    const resetForm = (): void => {
-        setFormData({ userName: '', userMail: '', message: '' });
-        if (form.current) form.current.reset();
-    };
+  const resetForm = () => {
+    setFormData({ userName: "", userMail: "", message: "" });
+    form.current?.reset();
+  };
 
-    const sendEmail = (e: React.FormEvent<HTMLFormElement>): void => {
-        e.preventDefault();
-        setLoading(true);
-        if (form.current) {
-            emailjs.sendForm(
-                EMAILJS_CONFIG.serviceId,
-                EMAILJS_CONFIG.templateId,
-                form.current,
-                EMAILJS_CONFIG.publicKey
-            ).then((result: EmailJSResponse) => {
-                console.log(result.text);
-                resetForm();
-                toast.success('Message sent successfully!');
-                setLoading(false);
-            }, (error: EmailJSError) => {
-                console.log(error.text);
-                toast.error('Failed to send message. Please try again.');
-                setLoading(false);
-            });
-        } else {
-            console.error("Form reference is undefined");
-            setLoading(false);
-        }
-    };
+  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!form.current) return;
+    setLoading(true);
+    emailjs
+      .sendForm(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, form.current, EMAILJS_CONFIG.publicKey)
+      .then(
+        () => { resetForm(); toast.success("Message sent!"); setLoading(false); },
+        () => { toast.error("Failed to send. Try again."); setLoading(false); },
+      );
+  };
 
-    return (
-        <div id="contact-me" className="min-h-[40rem] rounded-md pb-20 section-deepest flex flex-col items-center justify-center gap-10 relative w-full px-4 md:px-6 lg:px-8 xl:px-24 z-20">
-            {/* Ambient glow */}
-            <div className="absolute bottom-1/3 left-1/4 w-[500px] h-[500px] bg-indigo-500/[0.04] rounded-full blur-[120px] pointer-events-none" />
+  return (
+    <div id="contact-me" className="py-16 md:py-24 section-deepest relative w-full px-4 md:px-6 lg:px-8 xl:px-24 z-20">
+      {/* Ambient */}
+      <div className="absolute bottom-1/3 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-violet-500/[0.07] via-teal-500/[0.04] to-transparent rounded-full blur-[140px] pointer-events-none" />
 
-            <motion.div
-                initial={{ x: -100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-                className="w-full"
-            >
-                <MorphingText texts={MORPHING_TEXTS} />
-            </motion.div>
+      <div className="relative z-10 max-w-5xl mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ x: -80, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="mb-10 md:mb-14"
+        >
+          <MorphingText texts={MORPHING_TEXTS} />
+        </motion.div>
 
-            <Toaster toastOptions={{ duration: 4000 }} />
+        <Toaster toastOptions={{ duration: 4000 }} />
 
-            <div className="flex flex-col md:flex-row items-center justify-center lg:justify-between gap-y-5 md:gap-10 mt-10 w-full">
-                <motion.div
-                    initial={{ x: -100, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
-                    className="text-center lg:text-left px-3 w-full z-20"
-                >
-                    <p className="text-justify text-lg text-neutral-300 mb-12 leading-relaxed">
-                        &quot;{CONTACT_INFO.description}&quot;
-                    </p>
+        {/* ═══ Single cohesive card ═══ */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="rounded-3xl border border-white/[0.07] bg-white/[0.02] backdrop-blur-sm overflow-hidden"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-5">
+            {/* ── Left panel ── */}
+            <div className="lg:col-span-2 relative p-6 md:p-8 lg:p-10 flex flex-col justify-between bg-gradient-to-br from-violet-500/[0.06] via-transparent to-teal-500/[0.04]">
+              {/* Decorative orb */}
+              <div className="absolute -top-20 -left-20 w-48 h-48 bg-violet-500/15 rounded-full blur-[80px] pointer-events-none" />
 
-                    <div className="mb-6">
-                        <h3 className="text-lg mb-1 font-semibold text-indigo-300">Living in:</h3>
-                        <p className="text-base text-neutral-400">{CONTACT_INFO.location}</p>
-                    </div>
+              <div className="relative">
+                {/* Heading */}
+                <h3 className="text-2xl md:text-3xl font-bold leading-tight mb-3">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-br from-violet-300 via-rose-300 to-teal-300">
+                    Let&apos;s work together
+                  </span>
+                </h3>
+                <p className="text-sm text-white/50 leading-relaxed mb-8">
+                  Have an idea or project? I&apos;d love to hear about it. Drop me a message and let&apos;s create something great.
+                </p>
 
-                    <div className="mb-6">
-                        <h3 className="text-lg mb-1 font-semibold text-indigo-300">Call:</h3>
-                        <p className="text-base text-neutral-400">
-                            <a href="tel:+916398223144" className="hover:text-white transition-colors duration-300">{CONTACT_INFO.phone}</a>
-                        </p>
-                    </div>
+                {/* Contact info list */}
+                <div className="space-y-4 mb-8">
+                  {CONTACT_ITEMS.map((item) => {
+                    const Wrapper = item.href ? "a" : "div";
+                    return (
+                      <Wrapper
+                        key={item.label}
+                        {...(item.href ? { href: item.href } : {})}
+                        className="flex items-center gap-3 group"
+                      >
+                        <span className={cn("flex-shrink-0 h-9 w-9 rounded-xl ring-1 flex items-center justify-center text-base transition-transform duration-300 group-hover:scale-110", item.ring)}>
+                          {item.emoji}
+                        </span>
+                        <div className="min-w-0">
+                          <p className="text-[10px] uppercase tracking-widest text-white/25 font-medium leading-none">{item.label}</p>
+                          <p className={cn("text-sm font-medium truncate transition-colors duration-200", item.accent, item.href && "group-hover:text-white")}>
+                            {item.value}
+                          </p>
+                        </div>
+                      </Wrapper>
+                    );
+                  })}
+                </div>
+              </div>
 
-                    <div className="flex justify-center lg:justify-start align-items-center gap-x-5 pt-8 text-2xl">
-                        {SOCIAL_LINKS.map((social, index) => (
-                            <a
-                                key={index}
-                                className="text-neutral-400 hover:text-indigo-400 transition-all duration-300 hover:scale-110"
-                                href={social.href}
-                                rel="noreferrer"
-                                target="_blank"
-                                aria-label={social.label}
-                            >
-                                <FontAwesomeIcon icon={social.icon} />
-                            </a>
-                        ))}
-                    </div>
-                </motion.div>
-
-                <motion.div
-                    initial={{ x: 100, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.7, ease: "easeOut", delay: 0.25 }}
-                    className="max-w-md z-20 w-full mx-auto glass-card rounded-2xl p-6 md:p-8"
-                >
-                    <form className="my-4" ref={form} onSubmit={sendEmail}>
-                        <LabelInputContainer className="mb-4">
-                            <Label htmlFor="name" className="text-neutral-300">Name</Label>
-                            <Input
-                                id="name"
-                                name="user_name"
-                                placeholder="Shahad Hassan"
-                                type="text"
-                                value={formData.userName}
-                                onChange={(e) => handleInputChange('userName', e.target.value)}
-                            />
-                        </LabelInputContainer>
-
-                        <LabelInputContainer className="mb-4">
-                            <Label htmlFor="email" className="text-neutral-300">Email Address</Label>
-                            <Input
-                                id="email"
-                                name="user_email"
-                                placeholder="shahadg1983@gmail.com"
-                                type="email"
-                                value={formData.userMail}
-                                onChange={(e) => handleInputChange('userMail', e.target.value)}
-                            />
-                        </LabelInputContainer>
-
-                        <LabelInputContainer className="mb-6">
-                            <Label htmlFor="message" className="text-neutral-300">Message</Label>
-                            <Textarea
-                                id="message"
-                                name="message"
-                                placeholder="e.g. 'I want to talk about...'"
-                                value={formData.message}
-                                onChange={(e) => handleInputChange('message', e.target.value)}
-                            />
-                        </LabelInputContainer>
-
-                        <button
-                            className="relative group/btn w-full text-white rounded-xl h-11 font-semibold bg-gradient-to-r from-indigo-500 to-violet-500 hover:from-indigo-400 hover:to-violet-400 transition-all duration-500 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
-                            value="send"
-                            disabled={!isFormValid() || loading}
-                            type="submit"
-                        >
-                            {loading ? (
-                                "Sending ..."
-                            ) : (
-                                <span className="inline-flex items-center justify-center gap-x-2">
-                                    <FontAwesomeIcon icon={faTelegram} />
-                                    Send Message
-                                </span>
-                            )}
-                        </button>
-                    </form>
-                </motion.div>
+              {/* Divider + Socials — pinned to bottom on desktop */}
+              <div className="relative">
+                <div className="h-px w-full bg-gradient-to-r from-white/10 via-white/5 to-transparent mb-5" />
+                <p className="text-[10px] uppercase tracking-widest text-white/25 font-medium mb-3">Follow me</p>
+                <div className="flex gap-2">
+                  {SOCIAL_LINKS.map((s, i) => (
+                    <motion.a
+                      key={i}
+                      whileHover={{ scale: 1.15, y: -2 }}
+                      whileTap={{ scale: 0.9 }}
+                      href={s.href}
+                      rel="noreferrer"
+                      target="_blank"
+                      aria-label={s.label}
+                      className="h-9 w-9 flex items-center justify-center rounded-lg bg-white/[0.04] border border-white/[0.07] text-white/35 hover:text-white hover:bg-white/[0.1] hover:border-violet-500/30 transition-all duration-300"
+                    >
+                      <FontAwesomeIcon icon={s.icon} className="text-sm" />
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            <ShootingStars />
-            <StarsBackground />
-        </div>
-    );
+            {/* ── Right panel: Form ── */}
+            <div className="lg:col-span-3 p-6 md:p-8 lg:p-10 border-t lg:border-t-0 lg:border-l border-white/[0.06]">
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold text-white/90 mb-1">Send a message</h4>
+                <p className="text-xs text-white/35">All fields are required</p>
+              </div>
+
+              <form className="space-y-5" ref={form} onSubmit={sendEmail}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <LabelInputContainer>
+                    <Label htmlFor="name" className="text-white/50 font-medium text-xs">Name</Label>
+                    <Input
+                      id="name"
+                      name="user_name"
+                      placeholder="John Doe"
+                      type="text"
+                      value={formData.userName}
+                      onChange={(e) => set("userName", e.target.value)}
+                      className="bg-white/[0.03] border-white/[0.07] focus:border-violet-500/40 focus:bg-white/[0.05] text-foreground placeholder:text-white/15 rounded-xl h-10 text-sm transition-all duration-200"
+                    />
+                  </LabelInputContainer>
+                  <LabelInputContainer>
+                    <Label htmlFor="email" className="text-white/50 font-medium text-xs">Email</Label>
+                    <Input
+                      id="email"
+                      name="user_email"
+                      placeholder="you@example.com"
+                      type="email"
+                      value={formData.userMail}
+                      onChange={(e) => set("userMail", e.target.value)}
+                      className="bg-white/[0.03] border-white/[0.07] focus:border-violet-500/40 focus:bg-white/[0.05] text-foreground placeholder:text-white/15 rounded-xl h-10 text-sm transition-all duration-200"
+                    />
+                  </LabelInputContainer>
+                </div>
+
+                <LabelInputContainer>
+                  <Label htmlFor="message" className="text-white/50 font-medium text-xs">Message</Label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    placeholder="Tell me about your project…"
+                    value={formData.message}
+                    onChange={(e) => set("message", e.target.value)}
+                    className="bg-white/[0.03] border-white/[0.07] focus:border-violet-500/40 focus:bg-white/[0.05] text-foreground placeholder:text-white/15 resize-none min-h-[130px] rounded-xl text-sm transition-all duration-200"
+                  />
+                </LabelInputContainer>
+
+                <motion.button
+                  whileHover={{ scale: valid && !loading ? 1.015 : 1 }}
+                  whileTap={{ scale: valid && !loading ? 0.985 : 1 }}
+                  disabled={!valid || loading}
+                  type="submit"
+                  className="w-full btn-gradient py-2.5 text-sm font-semibold disabled:opacity-35 disabled:cursor-not-allowed transition-opacity"
+                >
+                  {loading ? (
+                    <span className="inline-flex items-center gap-2">
+                      <span className="inline-block w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Sending…
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center justify-center gap-2">
+                      <FontAwesomeIcon icon={faTelegram} />
+                      Send Message
+                    </span>
+                  )}
+                </motion.button>
+              </form>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      <ShootingStars />
+      <StarsBackground />
+    </div>
+  );
 }
 
-const LabelInputContainer = ({
-    children,
-    className,
-}: {
-    children: React.ReactNode;
-    className?: string;
-}): JSX.Element => {
-    return (
-        <div className={cn("flex flex-col space-y-2 w-full", className)}>
-            {children}
-        </div>
-    );
-};
+/* ─── Helpers ─── */
+
+const LabelInputContainer = ({ children, className }: { children: React.ReactNode; className?: string }) => (
+  <div className={cn("flex flex-col space-y-1.5 w-full", className)}>
+    {children}
+  </div>
+);

@@ -1,6 +1,5 @@
 "use client";
 import {
-//   useMotionValueEvent,
   useScroll,
   useTransform,
   motion,
@@ -39,45 +38,44 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
   return (
-    <div
-      className="w-full bg-black font-sans"
-      ref={containerRef}
-    >
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
+    <div className="w-full font-sans" ref={containerRef}>
+      <div ref={ref} className="relative max-w-6xl mx-auto pb-10 md:pb-20">
         {data.map((item, index) => (
           <div
             key={index}
-            className="flex justify-start pt-10 md:pt-40 md:gap-10"
+            className="flex justify-start pt-6 md:pt-20 md:gap-10"
           >
+            {/* Sticky left column: dot + title (desktop) */}
             <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-              <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-black flex items-center justify-center">
-                <div className="h-4 w-4 rounded-full bg-neutral-800 border border-neutral-700 p-2" />
+              <div className="h-8 w-8 md:h-10 md:w-10 absolute left-3 md:left-3 rounded-full bg-gradient-to-br from-teal-500/25 to-violet-500/15 border border-teal-400/35 flex items-center justify-center shadow-lg shadow-teal-500/20">
+                <div className="h-3 w-3 md:h-4 md:w-4 rounded-full bg-gradient-to-br from-teal-400 to-violet-400 border border-white/20 shadow-lg shadow-violet-500/25" />
               </div>
-              <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-neutral-500 ">
+              <h3 className="hidden md:block text-xl md:pl-20 md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-200 via-violet-200 to-rose-200">
                 {item.title}
               </h3>
             </div>
 
-            <div className="relative pl-20 pr-4 md:pl-4 w-full">
-              <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-neutral-500">
+            {/* Right column: mobile title + content */}
+            <div className="relative pl-16 md:pl-4 pr-2 md:pr-4 w-full">
+              <h3 className="md:hidden block text-lg mb-3 text-left font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-200 via-violet-200 to-rose-200">
                 {item.title}
               </h3>
-              {item.content}{" "}
+              {item.content}
             </div>
           </div>
         ))}
+
+        {/* Animated gradient line */}
         <div
-          style={{
-            height: height + "px",
-          }}
-          className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-neutral-700 to-transparent to-[99%]  [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] "
+          style={{ height: height + "px" }}
+          className="absolute md:left-8 left-[1.7rem] top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent from-[0%] via-teal-500/25 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
         >
           <motion.div
             style={{
               height: heightTransform,
               opacity: opacityTransform,
             }}
-            className="absolute inset-x-0 top-0  w-[2px] bg-gradient-to-t from-purple-500 via-blue-500 to-transparent from-[0%] via-[10%] rounded-full"
+            className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-teal-400 via-violet-500 to-transparent from-[0%] via-[10%] rounded-full shadow-lg shadow-teal-500/40"
           />
         </div>
       </div>

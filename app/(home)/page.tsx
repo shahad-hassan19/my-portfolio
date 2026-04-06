@@ -3,6 +3,7 @@ import { SectionSkeleton, TwoColumnMediaSkeleton, SkillsSectionSkeleton } from "
 import { MyNavbar } from "./_components/Navbar";
 import HeroSection from "./_components/HeroSection";
 import AboutSection from "./_components/AboutSection";
+import { CustomCursor } from "@/components/ui/custom-cursor";
 const SkillsSection = dynamic(() => import("./_components/SkillsSection"), {
   ssr: false,
   loading: () => <SkillsSectionSkeleton className="py-20" />,
@@ -30,16 +31,20 @@ const FooterSection = dynamic(() => import("./_components/FooterSection"), {
 
 export default function Home(): JSX.Element {
   return (
-    <div className="min-h-screen bg-[#030014] antialiased">
-      <MyNavbar />
-      <HeroSection />
-      <AboutSection />
-      <SkillsSection />
-      <ProjectsSection />
-      <ExperienceSection />
-      <TestimonialsSection />
-      <ContactSection />
-      <FooterSection />
+    <div className="relative min-h-screen w-full min-w-0 overflow-x-hidden antialiased">
+      <div className="page-atmosphere" aria-hidden />
+      <div className="relative z-10 w-full min-w-0">
+        <CustomCursor/>
+        <MyNavbar />
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <ExperienceSection />
+        <TestimonialsSection />
+        <ContactSection />
+        <FooterSection />
+      </div>
     </div>
   );
 }
