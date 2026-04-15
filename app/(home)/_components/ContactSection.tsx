@@ -10,7 +10,6 @@ import {
   faXTwitter,
   faInstagram,
   faGithub,
-  faTelegram,
 } from "@fortawesome/free-brands-svg-icons";
 import { MapPin, Phone, Mail, Send } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
