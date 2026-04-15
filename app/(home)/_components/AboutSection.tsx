@@ -54,8 +54,8 @@ const stagger = {
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+  hidden: { opacity: 0, y: 18, scale: 0.94 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
 };
 
 /* ─── Component ─── */
@@ -70,7 +70,8 @@ export default function AboutSection(): JSX.Element {
         {/* Section heading */}
         <motion.div
           initial={{ x: -80, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="w-full mb-12 md:mb-16"
         >
@@ -89,7 +90,7 @@ export default function AboutSection(): JSX.Element {
             I&apos;m{" "}
             <span className="gradient-text-animated">Shahad Hassan</span>
           </h2>
-          <p className="text-sm md:text-base text-white/45 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-sm md:text-base text-white/65 leading-relaxed max-w-2xl mx-auto">
             A Full Stack Developer who builds scalable, user-centric web applications
             with React, Next.js &amp; Node.js — focused on clean code, great UX, and
             shipping products that make a difference.

@@ -4,6 +4,7 @@ import { MyNavbar } from "./_components/Navbar";
 import HeroSection from "./_components/HeroSection";
 import AboutSection from "./_components/AboutSection";
 import { CustomCursor } from "@/components/ui/custom-cursor";
+import ScrollToTop from "./_components/ScrollToTop";
 const SkillsSection = dynamic(() => import("./_components/SkillsSection"), {
   ssr: false,
   loading: () => <SkillsSectionSkeleton className="py-20" />,
@@ -35,6 +36,7 @@ export default function Home(): JSX.Element {
       <div className="page-atmosphere" aria-hidden />
       <div className="relative z-10 w-full min-w-0">
         <CustomCursor/>
+        <ScrollToTop />
         <MyNavbar />
         <HeroSection />
         <AboutSection />

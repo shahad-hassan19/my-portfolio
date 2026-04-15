@@ -67,7 +67,8 @@ export default function TestimonialsSection(){
         <div className="section-container relative z-20">
           <motion.div
             initial={{ x: 100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="w-full mb-12"
           >
@@ -76,7 +77,8 @@ export default function TestimonialsSection(){
 
           <motion.div
             initial={{ x: -100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
             className="w-full z-20"
             ref={ref}
@@ -86,12 +88,12 @@ export default function TestimonialsSection(){
             ) : (
               <div className="max-w-4xl mx-auto antialiased font-sans py-20">
                 <div className="relative grid grid-cols-1 md:grid-cols-2 gap-20">
-                  <div className="relative h-80 w-full rounded-3xl bg-white/[0.03]" />
+                  <div className="relative h-80 w-full rounded-3xl bg-white/[0.07]" />
                   <div className="space-y-4">
-                    <div className="h-6 w-40 rounded-md bg-white/[0.03]" />
-                    <div className="h-4 w-full rounded-md bg-white/[0.03]" />
-                    <div className="h-4 w-5/6 rounded-md bg-white/[0.03]" />
-                    <div className="h-4 w-2/3 rounded-md bg-white/[0.03]" />
+                    <div className="h-6 w-40 rounded-md bg-white/[0.07]" />
+                    <div className="h-4 w-full rounded-md bg-white/[0.07]" />
+                    <div className="h-4 w-5/6 rounded-md bg-white/[0.07]" />
+                    <div className="h-4 w-2/3 rounded-md bg-white/[0.07]" />
                   </div>
                 </div>
               </div>

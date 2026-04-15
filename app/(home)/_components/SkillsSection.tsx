@@ -142,14 +142,15 @@ export default function SkillsSection(): JSX.Element {
   }));
 
   return (
-    <div id="skills" className="py-16 md:py-24 section-deepest relative w-full px-4 md:px-6 lg:px-8 xl:px-24">
+    <div id="skills" className="section-wrapper section-deepest relative">
       {/* Ambient glow */}
       <div className="absolute top-1/3 right-1/4 w-[700px] h-[700px] bg-gradient-to-br from-teal-500/[0.06] via-violet-500/[0.04] to-transparent rounded-full blur-[150px] pointer-events-none" />
 
-      <div className="relative z-10">
+      <div className="section-container relative z-10">
         <motion.div
           initial={{ x: -80, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="w-full mb-12 md:mb-16"
         >

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { StarsBackground } from "@/components/ui/stars-background";
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -11,6 +12,8 @@ const QUICK_LINKS = [
     { name: "About", href: "#about-me" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
+    { name: "Experience", href: "#experience" },
+    { name: "Contact", href: "#contact-me" },
 ];
 
 export default function FooterSection(): JSX.Element {
@@ -82,12 +85,10 @@ export default function FooterSection(): JSX.Element {
                             </p>
                             <Link
                                 href="#contact-me"
-                                className="btn-gradient py-2 px-4 text-sm inline-flex items-center justify-center gap-2 w-fit"
+                                className="btn-gradient py-2 px-4 text-sm inline-flex items-center justify-center gap-2 w-fit group"
                             >
                                 <span>Contact Me</span>
-                                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <path d="M5 12l5-5 5 5" />
-                                </svg>
+                                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
                             </Link>
                         </motion.div>
                     </div>

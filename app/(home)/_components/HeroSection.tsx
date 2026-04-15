@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Spotlight } from "@/components/ui/Spotlight";
 import { ContainerTextFlip } from "@/components/ui/container-text-flip";
 import Image from "next/image";
+import { ArrowRight, Mail, ChevronDown } from "lucide-react";
 
 const FLIP_WORDS = ["Full Stack Developer", "Web Developer"];
 
@@ -50,13 +51,12 @@ export default function HeroSection(): JSX.Element {
                         initial={{ opacity: 0, y: -30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
-                        className="text-4xl lg:text-5xl xl:text-7xl font-black text-foreground leading-[1.05] tracking-tight"
+                        className="text-3xl lg:text-5xl xl:text-7xl font-black text-foreground leading-none md:leading-[1.05] tracking-tight"
                     >
                         Hi, I&apos;m{" "}
                         <span className="gradient-text-animated">
-                            SHAHAD
+                            SHAHAD{" "}
                         </span>
-                        <br />
                         <span className="gradient-text-animated">
                             HASSAN
                         </span>
@@ -66,9 +66,8 @@ export default function HeroSection(): JSX.Element {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-                        className="text-2xl md:text-4xl lg:text-4xl tracking-tight text-center lg:text-left mb-8 mt-4 font-bold"
+                        className="text-2xl md:text-4xl lg:text-4xl tracking-tight text-center lg:text-left my-4 font-bold"
                     >
-                        <span className="text-muted-foreground">a </span>
                         <ContainerTextFlip words={FLIP_WORDS} />
                     </motion.h2>
 
@@ -91,20 +90,15 @@ export default function HeroSection(): JSX.Element {
                             href="#projects"
                             className="btn-gradient group"
                         >
-                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" className="transition-transform group-hover:-translate-y-1">
-                                <path d="M5 12l5-5 5 5" />
-                            </svg>
                             View My Works
+                            <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                         </a>
 
                         <a
                             href="#contact-me"
                             className="btn-ghost-outline group hover:scale-[1.02] motion-reduce:hover:scale-100"
                         >
-                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" className="inline-block">
-                                <circle cx="9" cy="9" r="7" />
-                                <path d="M9 5v4l2 2" />
-                            </svg>
+                            <Mail size={18} className="inline-block" />
                             Get In Touch
                         </a>
                     </motion.div>
@@ -141,6 +135,22 @@ export default function HeroSection(): JSX.Element {
                     </div>
                 </motion.div>
             </div>
+            {/* Scroll indicator */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.4, duration: 0.8 }}
+                className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 pointer-events-none"
+            >
+                <span className="text-[10px] uppercase tracking-widest text-white/30 font-medium">scroll</span>
+                <motion.div
+                    animate={{ y: [0, 6, 0] }}
+                    transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                >
+                    <ChevronDown size={18} className="text-white/25" />
+                </motion.div>
+            </motion.div>
+
             <LazyShootingStars
                 className="z-[4] pointer-events-none"
                 starColor="#a78bfa"

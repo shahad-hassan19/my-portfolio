@@ -100,7 +100,8 @@ export default function ProjectsSection() {
       <div className="section-container relative z-20 max-w-6xl mx-auto">
         <motion.div
           initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="w-full mb-16"
         >
@@ -122,7 +123,11 @@ export default function ProjectsSection() {
                 aria-label={`Open project: ${project.title}`}
                 className="group block h-full"
               >
-                <div className="glass-card rounded-2xl flex flex-col h-full overflow-hidden transition-all duration-500">
+                <div className="glass-card rounded-2xl flex flex-col h-full overflow-hidden transition-all duration-500 relative">
+                  {/* Order watermark */}
+                  <span className="absolute -bottom-4 -right-2 text-[7rem] font-black leading-none select-none pointer-events-none text-transparent bg-clip-text bg-gradient-to-t from-white/[0.05] to-transparent z-0">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
                   <div className="relative w-full aspect-[16/9] overflow-hidden">
                     <Image
                       src={project.image}

@@ -8,11 +8,12 @@ import {
   MobileNavHeader,
   MobileNavToggle,
   MobileNavMenu,
-  NavItems,
 } from "@/components/ui/resizable-navbar";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 // Constants
 const NAV_ITEMS: NavItem[] = [
@@ -35,6 +36,7 @@ interface NavItem {
 export function MyNavbar(): JSX.Element {
   const [isVisible, setIsVisible] = useState<boolean>(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
+  const [activeSection, setActiveSection] = useState<string>("");
   const lastScrollY = useRef<number>(0);
 
   useEffect(() => {
@@ -50,6 +52,21 @@ export function MyNavbar(): JSX.Element {
       window.addEventListener("scroll", handleScroll);
       return () => window.removeEventListener("scroll", handleScroll);
     }
+  }, []);
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    NAV_ITEMS.forEach(({ link }) => {
+      const el = document.getElementById(link);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(link); },
+        { threshold: 0.35 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+    return () => observers.forEach((o) => o.disconnect());
   }, []);
 
   const handleMobileMenuToggle = (): void => {
@@ -77,8 +94,28 @@ export function MyNavbar(): JSX.Element {
               height={32}
             />
           </Link>
-          <div className="flex gap-4">
-            <NavItems items={NAV_ITEMS} />
+          <div className="absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-1 text-sm font-medium lg:flex">
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item.link}
+                href={`#${item.link}`}
+                className={cn(
+                  "relative px-4 py-3 rounded-full transition-colors duration-200",
+                  activeSection === item.link
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {activeSection === item.link && (
+                  <motion.div
+                    layoutId="active-nav"
+                    className="absolute inset-0 rounded-full bg-primary/10 ring-1 ring-primary/20"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-20">{item.name}</span>
+              </a>
+            ))}
           </div>
           <div className="flex items-center gap-4">
             <NavbarButton
@@ -119,7 +156,12 @@ export function MyNavbar(): JSX.Element {
                 key={`mobile-link-${idx}`}
                 href={`#${item.link}`}
                 onClick={handleMobileMenuClose}
-                className="relative text-muted-foreground px-4 py-3 rounded-md hover:text-foreground transition-colors"
+                className={cn(
+                  "relative px-4 py-3 rounded-md transition-colors",
+                  activeSection === item.link
+                    ? "text-primary bg-primary/5"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
                 aria-label={item.name}
               >
                 <span className="block">{item.name}</span>

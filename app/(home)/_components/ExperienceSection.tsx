@@ -21,7 +21,7 @@ const ROLES = [
     company: "SoftLes",
     companyUrl: "https://softles.in",
     icon: <IconBriefcase size={16} />,
-    color: "teal" as const,
+    color: "rose" as const,
     isCurrent: true,
     order: "01",
     highlights: [
@@ -52,7 +52,7 @@ const ROLES = [
     company: "SoftLes",
     companyUrl: "https://softles.in",
     icon: <IconSchool size={16} />,
-    color: "rose" as const,
+    color: "teal" as const,
     isCurrent: false,
     order: "03",
     highlights: [
@@ -199,8 +199,8 @@ function ExperienceCard({
       <div className="relative px-5 md:px-7 py-4 md:py-5 space-y-2.5">
         {highlights.map((item, i) => (
           <div key={i} className="flex gap-2.5 items-start">
-            <span className={`flex-shrink-0 mt-[7px] h-1.5 w-1.5 rounded-full ${c.hlAccent} opacity-40`} />
-            <p className="text-xs md:text-sm text-white/50 leading-relaxed">
+            <span className={`flex-shrink-0 mt-[7px] h-1.5 w-1.5 rounded-full ${c.hlAccent} opacity-70`} />
+            <p className="text-xs md:text-sm text-white/70 leading-relaxed">
               {item}
             </p>
           </div>
@@ -224,13 +224,15 @@ export default function ExperienceSection() {
   return (
     <div
       id="experience"
-      className="py-16 md:py-24 section-darker flex flex-col items-center justify-center gap-8 md:gap-10 relative w-full px-4 md:px-6 lg:px-8 xl:px-24"
+      className="section-wrapper section-darker relative"
     >
       {/* Ambient glow */}
       <div className="absolute top-1/2 right-1/3 w-[600px] h-[600px] bg-gradient-to-br from-violet-500/[0.07] via-transparent to-teal-500/[0.05] rounded-full blur-[140px] pointer-events-none" />
 
-      <MorphingText texts={texts} />
-      <Timeline data={timelineData} />
+      <div className="section-container flex flex-col items-center gap-8 md:gap-10 relative z-10">
+        <MorphingText texts={texts} />
+        <Timeline data={timelineData} />
+      </div>
       <ShootingStars />
       <StarsBackground />
     </div>
