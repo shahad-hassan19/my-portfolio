@@ -18,6 +18,7 @@ import {
   IconChartBar,
   IconBrandPrisma,
   IconExternalLink,
+  IconBrandAws,
 } from "@tabler/icons-react";
 import { SiRazorpay, SiShopify } from "react-icons/si";
 
@@ -34,6 +35,7 @@ const projects = [
       { label: "MongoDB" },
       { label: "Prisma" },
       { label: "Razorpay" },
+      { label: "AWS S3" },
     ],
   },
   {
@@ -61,7 +63,7 @@ const projects = [
   {
     title: "Brunswick Fur Food – Headless Shopify Storefront",
     description: "Headless e-commerce storefront built using Next.js and Shopify Storefront API.",
-    image: "/BFF.png",
+    image: "/BrunswickFurFood.png",
     url: "https://web.brunswickfurfood.com",
     tech: [
       { label: "NextJS" },
@@ -69,6 +71,19 @@ const projects = [
       { label: "Tailwind CSS" },
       { label: "MongoDB" },
       { label: "Shopify" },
+    ],
+  },
+  {
+    title: "Literature Lovers",
+    description: "Admin-controlled platform for publishing eBooks/ePapers with form-gated user access to curated study materials.",
+    image: "/literature_lovers.png",
+    url: "https://www.web.literaturelovers.in/",
+    tech: [
+      { label: "NextJS" },
+      { label: "TypeScript" },
+      { label: "Tailwind CSS" },
+      { label: "Prisma" },
+      { label: "MongoDB" },
     ],
   },
 ] as const;
@@ -87,6 +102,7 @@ const techIconMap = {
   "API Integration": IconApi,
   Razorpay: SiRazorpay,
   Shopify: SiShopify,
+  "AWS S3": IconBrandAws,
 };
 
 export default function ProjectsSection() {
@@ -108,7 +124,7 @@ export default function ProjectsSection() {
           <MorphingText texts={texts} />
         </motion.div>
 
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 z-20">
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 z-20">
           {projects.map((project, idx) => (
             <motion.div
               key={idx}
