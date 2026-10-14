@@ -6,7 +6,7 @@ export function Skeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "animate-pulse rounded-md bg-[#23272f] shadow-[0px_0px_8px_0px_rgba(248,248,248,0.15)_inset,0px_24px_18px_-12px_rgba(0,0,0,0.10)]",
+        "animate-pulse rounded-md bg-[#292524] shadow-[0px_0px_8px_0px_rgba(248,248,248,0.15)_inset,0px_24px_18px_-12px_rgba(0,0,0,0.10)]",
         className
       )}
       aria-hidden="true"
@@ -31,7 +31,7 @@ export function SectionSkeleton({ className }: { className?: string }) {
         <Skeleton className="h-7 w-56 rounded-full" />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div className="rounded-xl p-6 bg-[#23272f] shadow-[0px_0px_8px_0px_rgba(248,248,248,0.15)_inset,0px_24px_18px_-12px_rgba(0,0,0,0.10)]">
+        <div className="rounded-xl p-6 bg-[#292524] shadow-[0px_0px_8px_0px_rgba(248,248,248,0.15)_inset,0px_24px_18px_-12px_rgba(0,0,0,0.10)]">
           <div className="flex items-center gap-3 mb-4">
             <Skeleton className="h-8 w-8 rounded-full" />
             <Skeleton className="h-6 w-40" />
@@ -42,7 +42,7 @@ export function SectionSkeleton({ className }: { className?: string }) {
             <Skeleton className="h-4 w-3/4" />
           </div>
         </div>
-        <div className="rounded-xl p-6 bg-[#23272f] shadow-[0px_0px_8px_0px_rgba(248,248,248,0.15)_inset,0px_24px_18px_-12px_rgba(0,0,0,0.10)]">
+        <div className="rounded-xl p-6 bg-[#292524] shadow-[0px_0px_8px_0px_rgba(248,248,248,0.15)_inset,0px_24px_18px_-12px_rgba(0,0,0,0.10)]">
           <div className="flex items-center gap-3 mb-4">
             <Skeleton className="h-8 w-8 rounded-full" />
             <Skeleton className="h-6 w-40" />
@@ -53,7 +53,7 @@ export function SectionSkeleton({ className }: { className?: string }) {
             <Skeleton className="h-4 w-3/4" />
           </div>
         </div>
-        <div className="rounded-xl p-6 bg-[#23272f] shadow-[0px_0px_8px_0px_rgba(248,248,248,0.15)_inset,0px_24px_18px_-12px_rgba(0,0,0,0.10)]">
+        <div className="rounded-xl p-6 bg-[#292524] shadow-[0px_0px_8px_0px_rgba(248,248,248,0.15)_inset,0px_24px_18px_-12px_rgba(0,0,0,0.10)]">
           <div className="flex items-center gap-3 mb-4">
             <Skeleton className="h-8 w-8 rounded-full" />
             <Skeleton className="h-6 w-40" />
@@ -73,7 +73,7 @@ export function TwoColumnMediaSkeleton() {
   return (
     <div className="max-w-sm md:max-w-4xl mx-auto px-4 md:px-8 lg:px-12 py-20">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-        <div className="rounded-3xl overflow-hidden bg-[#23272f] shadow-[0px_0px_8px_0px_rgba(248,248,248,0.15)_inset,0px_24px_18px_-12px_rgba(0,0,0,0.10)]">
+        <div className="rounded-3xl overflow-hidden bg-[#292524] shadow-[0px_0px_8px_0px_rgba(248,248,248,0.15)_inset,0px_24px_18px_-12px_rgba(0,0,0,0.10)]">
           <Skeleton className="h-80 w-full rounded-3xl" />
         </div>
         <div className="space-y-4">
@@ -109,7 +109,7 @@ export function SkillsSectionSkeleton({ className }: { className?: string }) {
         {Array.from({ length: 4 }).map((_, idx) => (
           <div
             key={idx}
-            className="rounded-xl p-6 bg-[#23272f] shadow-[0px_0px_8px_0px_rgba(248,248,248,0.15)_inset,0px_24px_18px_-12px_rgba(0,0,0,0.10)]"
+            className="rounded-xl p-6 bg-[#292524] shadow-[0px_0px_8px_0px_rgba(248,248,248,0.15)_inset,0px_24px_18px_-12px_rgba(0,0,0,0.10)]"
           >
             <div className="flex items-center gap-3 mb-4">
               <Skeleton className="h-8 w-8 rounded-full" />

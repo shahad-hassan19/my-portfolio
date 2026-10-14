@@ -1,161 +1,195 @@
 "use client";
 
 import React from "react";
-import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
-
-import { Spotlight } from "@/components/ui/Spotlight";
-import { ContainerTextFlip } from "@/components/ui/container-text-flip";
 import Image from "next/image";
-import { ArrowRight, Mail, ChevronDown } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
 
-const FLIP_WORDS = ["Full Stack Developer", "Web Developer"];
+import { cn } from "@/lib/utils";
+import { ContainerTextFlip } from "@/components/ui/container-text-flip";
+import { TechMarquee } from "@/components/ui/tech-marquee";
 
-const LazyStarsBackground = dynamic(
-    () => import("@/components/ui/stars-background").then((m) => m.StarsBackground),
-    { ssr: false }
-);
+const FLIP_WORDS = ["Full Stack Developer", "Next.js Engineer", "API Builder", "UI Craftsman"];
+const SOCIALS = [
+  { Icon: Github, href: "https://github.com/shahad-hassan19", label: "GitHub" },
+  {
+    Icon: Linkedin,
+    href: "https://www.linkedin.com/in/shahad-hassan-82287a220",
+    label: "LinkedIn",
+  },
+  { Icon: Mail, href: "mailto:shahadg1983@gmail.com", label: "Email" },
+];
+const STATS = [
+  { value: "2+", label: "years shipping" },
+  { value: "10+", label: "live projects" },
+  { value: "20+", label: "technologies" },
+];
+const INTRO =
+  "I build fast, scalable web apps end to end, from pixel-perfect React interfaces to secure APIs and databases. Clean code, smooth UX, shipped to production.";
+const PHOTO = "/shahad-arms-crossed.png";
 
-const LazyShootingStars = dynamic(
-    () => import("@/components/ui/shooting-stars").then((m) => m.ShootingStars),
-    { ssr: false }
-);
+const ease = [0.22, 1, 0.36, 1] as const;
+const rise = (delay = 0) => ({
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, ease, delay },
+});
 
-export default function HeroSection(): JSX.Element {
-    return (
-        <div className="section-dark relative flex min-h-screen w-full min-w-0 flex-col items-center justify-center overflow-hidden pt-10 antialiased">
-            <div className="absolute inset-0 grid-mesh z-0 pointer-events-none opacity-70" />
-            <LazyStarsBackground className="z-[1]" />
-            <Spotlight
-                className="-top-40 left-0 md:left-60 md:-top-20 z-[5]"
-                fill="hsl(172, 62%, 58%)"
-            />
+function Ctas({ className = "" }: { className?: string }) {
+  return (
+    <div className={cn("flex flex-wrap items-center gap-3", className)}>
+      <a href="#projects" className="btn-gradient group">
+        View my work <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+      </a>
+      <a href="#contact-me" className="btn-ghost-outline">
+        <Mail size={18} /> Let&apos;s talk
+      </a>
+    </div>
+  );
+}
 
-            {/* Radial glows — teal / violet / rose */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(90vw,800px)] h-[min(90vw,800px)] bg-gradient-to-br from-teal-500/[0.14] via-transparent to-violet-500/[0.1] rounded-full blur-[140px] pointer-events-none z-0" />
-            <div className="absolute top-1/4 right-[12%] w-[min(70vw,560px)] h-[min(70vw,560px)] bg-gradient-to-br from-rose-500/[0.09] via-fuchsia-500/[0.06] to-transparent rounded-full blur-[120px] pointer-events-none z-0" />
+function Socials({ className = "" }: { className?: string }) {
+  return (
+    <div className={cn("flex items-center gap-2", className)}>
+      {SOCIALS.map(({ Icon, href, label }) => (
+        <a
+          key={label}
+          href={href}
+          target={href.startsWith("http") ? "_blank" : undefined}
+          rel="noreferrer"
+          aria-label={label}
+          className="grid h-10 w-10 place-items-center rounded-xl border border-white/[0.09] bg-white/[0.03] text-white/50 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-white"
+        >
+          <Icon size={17} />
+        </a>
+      ))}
+    </div>
+  );
+}
 
-            <div className="relative z-20 mx-auto flex w-full min-w-0 max-w-7xl flex-col-reverse items-center justify-between gap-12 px-4 py-12 sm:px-6 md:px-8 md:py-16 lg:flex-row lg:px-10 xl:px-12 motion-safe:will-change-transform">
-                <div className="flex flex-col items-center lg:items-start w-full lg:w-1/2 max-w-xl">
-                    <motion.div
-                        initial={{ opacity: 0, y: -30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: 'easeOut' }}
-                    >
-                        <p className="text-sm font-medium tracking-[0.2em] uppercase text-primary mb-4">
-                            Welcome to my portfolio
-                        </p>
-                    </motion.div>
-
-                    <motion.h1
-                        initial={{ opacity: 0, y: -30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.1 }}
-                        className="text-3xl lg:text-5xl xl:text-7xl font-black text-foreground leading-none md:leading-[1.05] tracking-tight"
-                    >
-                        Hi, I&apos;m{" "}
-                        <span className="gradient-text-animated">
-                            SHAHAD{" "}
-                        </span>
-                        <span className="gradient-text-animated">
-                            HASSAN
-                        </span>
-                    </motion.h1>
-
-                    <motion.h2
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-                        className="text-2xl md:text-4xl lg:text-4xl tracking-tight text-center lg:text-left my-4 font-bold"
-                    >
-                        <ContainerTextFlip words={FLIP_WORDS} />
-                    </motion.h2>
-
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        className="text-base md:text-lg text-muted-foreground leading-relaxed mb-8 max-w-2xl"
-                    >
-                        Full Stack Developer crafting beautiful, scalable web experiences. Specializing in React, Next.js, Node.js, and modern web technologies to build products that matter.
-                    </motion.p>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="flex flex-col sm:flex-row gap-4 mt-8"
-                    >
-                        <a
-                            href="#projects"
-                            className="btn-gradient group"
-                        >
-                            View My Works
-                            <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-                        </a>
-
-                        <a
-                            href="#contact-me"
-                            className="btn-ghost-outline group hover:scale-[1.02] motion-reduce:hover:scale-100"
-                        >
-                            <Mail size={18} className="inline-block" />
-                            Get In Touch
-                        </a>
-                    </motion.div>
-                </div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
-                    className="relative flex items-center justify-center lg:justify-end w-full lg:w-1/2 max-w-xl"
-                >
-                    <div className="w-full flex items-center justify-center lg:justify-end">
-                        <div className="animate-float relative">
-                            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-teal-500/25 via-violet-500/20 to-rose-500/15 blur-3xl motion-reduce:blur-2xl" />
-                            <div
-                                className="relative rounded-full p-[3px] glow-ring"
-                                style={{
-                                    background:
-                                        "linear-gradient(135deg, hsl(var(--color-1)) 0%, hsl(var(--color-2)) 45%, hsl(var(--color-3)) 100%)",
-                                }}
-                            >
-                                <div className="relative w-52 h-52 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-96 lg:h-96 rounded-full overflow-hidden ">
-                                    <Image
-                                        src="/profile-pic1.png"
-                                        alt="Shahad Hassan"
-                                        width={400}
-                                        height={400}
-                                        className="w-full h-full object-cover rounded-full"
-                                        priority
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
-            </div>
-            {/* Scroll indicator */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1.4, duration: 0.8 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 pointer-events-none"
-            >
-                <span className="text-[10px] uppercase tracking-widest text-white/30 font-medium">scroll</span>
-                <motion.div
-                    animate={{ y: [0, 6, 0] }}
-                    transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-                >
-                    <ChevronDown size={18} className="text-white/25" />
-                </motion.div>
-            </motion.div>
-
-            <LazyShootingStars
-                className="z-[4] pointer-events-none"
-                starColor="#a78bfa"
-                trailColor="#2dd4bf"
-            />
+function Stats({ className = "", vertical = false }: { className?: string; vertical?: boolean }) {
+  return (
+    <dl className={cn(vertical ? "flex flex-col gap-6" : "grid grid-cols-3 gap-6", className)}>
+      {STATS.map((s) => (
+        <div key={s.label}>
+          <dt className="sr-only">{s.label}</dt>
+          <dd className="text-2xl font-black text-foreground md:text-3xl">{s.value}</dd>
+          <dd className="font-mono text-[10px] uppercase tracking-wider text-white/40 md:text-[11px]">{s.label}</dd>
         </div>
-    );
+      ))}
+    </dl>
+  );
+}
+
+function Photo({ className = "", glow = true, priority = false }: { className?: string; glow?: boolean; priority?: boolean }) {
+  return (
+    <div className={cn("relative", className)}>
+      {glow && (
+        <div className="absolute inset-x-[10%] top-[10%] bottom-[25%] rounded-full bg-gradient-to-b from-amber-500/40 via-orange-500/15 to-transparent blur-3xl" />
+      )}
+      <div className="relative h-full w-full [mask-image:linear-gradient(to_bottom,black_75%,transparent)]">
+        <Image
+          src={PHOTO}
+          alt="Shahad Hassan"
+          fill
+          sizes="(min-width: 1024px) 480px, 80vw"
+          className="object-contain object-bottom"
+          priority={priority}
+        />
+      </div>
+    </div>
+  );
+}
+
+function Whoami({ className = "" }: { className?: string }) {
+  return (
+    <p className={cn("font-mono text-sm text-white/45", className)}>
+      <span className="text-primary">~</span>
+      <span className="text-orange-300"> $</span> whoami
+      <span className="caret ml-1 inline-block h-4 w-2 translate-y-0.5 bg-primary/80" />
+    </p>
+  );
+}
+
+function Strip() {
+  return (
+    <div className="relative z-20 border-y border-white/[0.06] bg-white/[0.015] py-5 backdrop-blur-sm">
+      <TechMarquee />
+    </div>
+  );
+}
+
+// The hero is exactly one screen tall; the photo takes whatever height is left.
+// Exactly one screen from tablets up; on phones it grows to fit the text plus the photo below it
+const SCREEN = "relative flex min-h-[100svh] w-full flex-col overflow-hidden md:h-[100svh] md:min-h-[640px]";
+const BIG = "font-black uppercase leading-[0.85] tracking-tighter";
+const OUTLINE = "text-transparent [-webkit-text-stroke:2px_rgba(255,255,255,0.7)]";
+
+/* ─── Section: text on the left, you on the right with the big words around ─── */
+
+export default function HeroSection({ background }: { background?: React.ReactNode } = {}): JSX.Element {
+  return (
+    <section className={SCREEN}>
+      {/* Optional animated layer behind the whole section */}
+      {background && <div className="pointer-events-none absolute inset-0 z-0">{background}</div>}
+      <div className="relative z-10 mx-auto grid min-h-0 w-full max-w-6xl flex-1 grid-cols-1 gap-2 px-4 pt-24 sm:px-6 md:grid-cols-[1fr_1.05fr] md:gap-4 md:px-8 lg:px-12">
+        <div className="flex flex-col justify-center pb-6">
+          <motion.div {...rise(0)}>
+            <Whoami />
+          </motion.div>
+          <motion.h1 {...rise(0.1)} className="mt-3 text-5xl font-black leading-[0.95] tracking-tight sm:text-6xl xl:text-7xl">
+            Shahad <br className="hidden md:block" />
+            <span className="gradient-text-animated">Hassan</span>
+          </motion.h1>
+          <motion.div {...rise(0.2)} className="mt-4 text-xl font-bold sm:text-2xl">
+            <ContainerTextFlip words={FLIP_WORDS} />
+          </motion.div>
+          <motion.p {...rise(0.3)} className="mt-4 max-w-lg text-muted-foreground">
+            {INTRO}
+          </motion.p>
+          <motion.div {...rise(0.4)} className="mt-7 flex flex-wrap items-center gap-4">
+            <Ctas />
+            <Socials />
+          </motion.div>
+          <motion.div {...rise(0.5)} className="mt-8 hidden max-w-md border-t border-white/[0.08] pt-5 lg:block">
+            <Stats />
+          </motion.div>
+        </div>
+
+        <div className="relative h-[58svh] max-h-[560px] min-h-[380px] [container-type:size] md:h-auto md:max-h-none md:min-h-0">
+          {/* Never taller than the photo needs, so on tall narrow screens the words stay hugging it */}
+          <div className="absolute inset-x-0 top-1/2 h-[min(100cqh,calc(100cqw*1.32))] -translate-y-1/2">
+            <motion.p
+              initial={{ opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, ease, delay: 0.3 }}
+              // One line in the empty space above the head, so the body never hides it
+              className={cn(
+                BIG,
+                OUTLINE,
+                "absolute inset-x-0 top-0 whitespace-nowrap text-center text-[2.85rem] sm:text-[4rem] md:text-[3rem] lg:text-[4.75rem] xl:text-[5.75rem]",
+              )}
+            >
+              Full Stack
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, x: -60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, ease, delay: 0.45 }}
+              className={cn(
+                BIG,
+                "absolute bottom-[6%] left-0 z-20 text-[3.5rem] text-primary drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] sm:text-[4.5rem] md:text-[3.6rem] lg:text-[5.25rem] xl:text-[6rem]",
+              )}
+            >
+              Developer
+            </motion.p>
+            <motion.div {...rise(0.2)} className="absolute inset-x-[8%] bottom-0 top-[4%] z-10">
+              <Photo className="h-full w-full" glow={false} priority />
+            </motion.div>
+          </div>
+        </div>
+      </div>
+      <Strip />
+    </section>
+  );
 }

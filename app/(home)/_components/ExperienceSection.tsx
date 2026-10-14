@@ -1,240 +1,218 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { IconCode, IconBriefcase, IconSchool, IconArrowUpRight } from "@tabler/icons-react";
+import React, { useRef, useState } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
+import { IconArrowUpRight } from "@tabler/icons-react";
 
-import MorphingText from "@/components/ui/morphing-text";
-import { ShootingStars } from "@/components/ui/shooting-stars";
-import { Timeline } from "@/components/ui/timeline";
-import { StarsBackground } from "@/components/ui/stars-background";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { cn } from "@/lib/utils";
+import { ROLES, type Role } from "../_data/experience";
 
-/* ─── Data ─── */
+const ease = [0.22, 1, 0.36, 1] as const;
 
-const texts = ["Experience", "Changelog of my journey"];
+/** Small inline company mark + name + domain, styled to sit quietly under the role title. */
+function Company({ r }: { r: Role }) {
+  const domain = r.companyUrl.replace(/^https?:\/\//, "").replace(/\/$/, "");
+  return (
+    <a
+      href={r.companyUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(e) => e.stopPropagation()}
+      className="group/c inline-flex items-center gap-2.5 text-foreground/80 transition-colors hover:text-primary"
+    >
+      <span className="grid h-6 w-6 place-items-center rounded-md border border-primary/30 bg-primary/10 font-mono text-[11px] font-bold text-primary">
+        {r.company[0]}
+      </span>
+      <span className="text-base font-semibold">{r.company}</span>
+      <span className="font-mono text-xs text-muted-foreground">· {domain}</span>
+      <IconArrowUpRight
+        size={14}
+        className="text-muted-foreground opacity-0 transition-all group-hover/c:-translate-y-0.5 group-hover/c:translate-x-0.5 group-hover/c:text-primary group-hover/c:opacity-100"
+      />
+    </a>
+  );
+}
 
-const ROLES = [
-  {
-    title: "Feb 2025 - Present",
-    role: "Full Stack Developer",
-    company: "SoftLes",
-    companyUrl: "https://softles.in",
-    icon: <IconBriefcase size={16} />,
-    color: "rose" as const,
-    isCurrent: true,
-    order: "01",
-    highlights: [
-      "Built front-end & full-stack platforms with secure auth and role-based controls",
-      "Integrated third-party services/APIs, solving real-world implementation challenges",
-      "Designed scalable backend with modular content management & secure storage",
-      "Collaborated on debugging, testing, and architectural reviews across projects",
-    ],
-  },
-  {
-    title: "Feb 2024 - Feb 2025",
-    role: "Front End Developer",
-    company: "SoftLes",
-    companyUrl: "https://softles.in",
-    icon: <IconCode size={16} />,
-    color: "violet" as const,
-    isCurrent: false,
-    order: "02",
-    highlights: [
-      "Developed web applications using React.js with high performance standards",
-      "Delivered production features across multiple product cycles",
-      "Participated in code reviews and iterative development at scale",
-    ],
-  },
-  {
-    title: "Aug 2023 - Feb 2024",
-    role: "Front End Developer Intern",
-    company: "SoftLes",
-    companyUrl: "https://softles.in",
-    icon: <IconSchool size={16} />,
-    color: "teal" as const,
-    isCurrent: false,
-    order: "03",
-    highlights: [
-      "Built proficiency in React.js through hands-on training & practical exercises",
-      "Developed foundation in responsive design & cross-browser compatibility",
-      "Engaged in learning sessions on development methodologies and tools",
-    ],
-  },
-];
+function Stack({ r, className = "" }: { r: Role; className?: string }) {
+  return (
+    <div className={cn("flex flex-wrap gap-1.5", className)}>
+      {r.tags.map((t) => (
+        <span key={t} className="rounded-md bg-primary/10 px-2 py-0.5 font-mono text-[11px] text-primary/90">
+          {t}
+        </span>
+      ))}
+    </div>
+  );
+}
 
-/* ─── Color tokens ─── */
+/* ─── One role = one full-width chapter with a parallax version number ─── */
 
-const C = {
-  teal: {
-    chipBg: "bg-teal-500/10 border-teal-500/20 hover:border-teal-400/50 hover:bg-teal-500/15",
-    chipText: "text-teal-300",
-    roleGradient: "from-teal-200 to-cyan-200",
-    glowColor: "45,212,191",
-    watermark: "from-teal-400/[0.06] to-transparent",
-    hlAccent: "bg-teal-400",
-    divider: "rgba(45,212,191,0.25)",
-    iconBg: "bg-teal-500/10 border border-teal-500/20",
-    iconText: "text-teal-300",
-    companyText: "text-teal-300/70 hover:text-teal-300",
-  },
-  violet: {
-    chipBg: "bg-violet-500/10 border-violet-500/20 hover:border-violet-400/50 hover:bg-violet-500/15",
-    chipText: "text-violet-300",
-    roleGradient: "from-violet-200 to-purple-200",
-    glowColor: "167,139,250",
-    watermark: "from-violet-400/[0.06] to-transparent",
-    hlAccent: "bg-violet-400",
-    divider: "rgba(167,139,250,0.25)",
-    iconBg: "bg-violet-500/10 border border-violet-500/20",
-    iconText: "text-violet-300",
-    companyText: "text-violet-300/70 hover:text-violet-300",
-  },
-  rose: {
-    chipBg: "bg-rose-500/10 border-rose-500/20 hover:border-rose-400/50 hover:bg-rose-500/15",
-    chipText: "text-rose-300",
-    roleGradient: "from-rose-200 to-pink-200",
-    glowColor: "244,114,182",
-    watermark: "from-rose-400/[0.06] to-transparent",
-    hlAccent: "bg-rose-400",
-    divider: "rgba(244,114,182,0.25)",
-    iconBg: "bg-rose-500/10 border border-rose-500/20",
-    iconText: "text-rose-300",
-    companyText: "text-rose-300/70 hover:text-rose-300",
-  },
+function Highlights({ r }: { r: Role }) {
+  return (
+    <div>
+      {r.highlights.map((h, k) => (
+        <motion.p
+          key={h}
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 + k * 0.1, duration: 0.45 }}
+          className="border-b border-white/[0.06] py-3 text-foreground/80"
+        >
+          {h}
+        </motion.p>
+      ))}
+      <Stack r={r} className="mt-5" />
+    </div>
+  );
+}
+
+// Slow, soft ease for the hover reveal
+const reveal = [0.65, 0, 0.35, 1] as const;
+
+const revealList = {
+  hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+  show: { transition: { staggerChildren: 0.14, delayChildren: 0.18 } },
 };
 
-/* ─── Card ─── */
+// Each line wipes in from the left while coming into focus
+const revealLine = {
+  hidden: { opacity: 0, x: -12, filter: "blur(6px)", clipPath: "inset(0 100% 0 0)", transition: { duration: 0.3, ease: reveal } },
+  show: { opacity: 1, x: 0, filter: "blur(0px)", clipPath: "inset(0 0% 0 0)", transition: { duration: 0.75, ease: reveal } },
+};
 
-function ExperienceCard({
-  role,
-  company,
-  companyUrl,
-  icon,
-  color,
-  isCurrent,
-  order,
-  highlights,
-}: (typeof ROLES)[number]) {
-  const c = C[color];
+const revealTags = {
+  hidden: { opacity: 0, y: 8, scale: 0.9, transition: { duration: 0.2 } },
+  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 260, damping: 18 } },
+};
 
+/** Highlights for an earlier role, revealed on hover. */
+function RevealHighlights({ r }: { r: Role }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="group glass-card rounded-2xl md:rounded-3xl relative overflow-hidden z-20"
+      initial={{ height: 0 }}
+      animate={{ height: "auto" }}
+      exit={{ height: 0, transition: { duration: 0.45, ease: reveal, delay: 0.15 } }}
+      transition={{ duration: 0.7, ease: reveal }}
+      className="overflow-hidden md:self-center"
     >
-
-      {/* Ambient glow orb */}
-      <div
-        className="absolute -top-24 -right-24 w-52 h-52 rounded-full blur-[60px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-        style={{ background: `rgba(${c.glowColor}, 0.06)` }}
-      />
-
-      {/* Large order watermark */}
-      <span className={`absolute -bottom-6 -right-3 text-[8rem] md:text-[10rem] font-black leading-none select-none pointer-events-none text-transparent bg-clip-text bg-gradient-to-t ${c.watermark}`}>
-        {order}
-      </span>
-
-      {/* ── Header panel (full-bleed, own color zone) ── */}
-      <div className="relative px-5 md:px-7 pt-5 md:pt-6 pb-5 overflow-hidden">
-        {/* Header background wash */}
-        <div
-          className="absolute inset-0 transition-opacity duration-500"
-          style={{ background: `linear-gradient(135deg, rgba(${c.glowColor}, 0.09) 0%, rgba(${c.glowColor}, 0.03) 50%, transparent 100%)` }}
-        />
-        {/* Left accent bar */}
-        <div
-          className="absolute left-0 top-0 bottom-0 w-[3px]"
-          style={{ background: `linear-gradient(to bottom, rgba(${c.glowColor}, 0.75) 0%, rgba(${c.glowColor}, 0.15) 100%)` }}
-        />
-
-        {/* Row 1: icon + current badge */}
-        <div className="relative flex items-center justify-between gap-3 mb-3.5">
-          <div
-            className={`h-10 w-10 rounded-xl border ${c.iconBg} flex items-center justify-center transition-all duration-300`}
-          >
-            <span className={c.iconText}>{icon}</span>
-          </div>
-
-          {isCurrent && (
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider rounded-full px-2.5 py-0.5 bg-emerald-500/10 border border-emerald-500/25 text-emerald-300">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
-              </span>
-              Current
-            </span>
-          )}
-        </div>
-
-        {/* Row 2: role title */}
-        <h4
-          className={`relative text-lg md:text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r ${c.roleGradient} leading-tight`}
-        >
-          {role}
-        </h4>
-
-        {/* Row 3: company link */}
-        <Link
-          href={companyUrl}
-          target="_blank"
-          className={`relative inline-flex items-center gap-1 text-base font-semibold tracking-wide ${c.companyText} transition-colors duration-200 group/link`}
-        >
-          <span className="opacity-80">@</span>
-          <span className="group-hover/link:underline underline-offset-2">{company}</span>
-          <IconArrowUpRight size={10} className="opacity-0 group-hover/link:opacity-60 transition-opacity duration-200" />
-        </Link>
-      </div>
-
-      {/* Separator */}
-      <div
-        className="mx-0 h-px opacity-20"
-        style={{ background: `linear-gradient(to right, rgba(${c.glowColor}, 1) 0%, rgba(${c.glowColor}, 0.1) 60%, transparent 100%)` }}
-      />
-
-      {/* ── Highlights ── */}
-      <div className="relative px-5 md:px-7 py-4 md:py-5 space-y-2.5">
-        {highlights.map((item, i) => (
-          <div key={i} className="flex gap-2.5 items-start">
-            <span className={`flex-shrink-0 mt-[7px] h-1.5 w-1.5 rounded-full ${c.hlAccent} opacity-70`} />
-            <p className="text-xs md:text-sm text-white/70 leading-relaxed">
-              {item}
-            </p>
-          </div>
+      <motion.div variants={revealList} initial="hidden" animate="show" exit="hidden">
+        {r.highlights.map((h) => (
+          <motion.p key={h} variants={revealLine} className="border-b border-white/[0.06] py-3 text-foreground/80">
+            {h}
+          </motion.p>
         ))}
-
-      </div>
+        <motion.div variants={revealTags}>
+          <Stack r={r} className="mt-5" />
+        </motion.div>
+      </motion.div>
     </motion.div>
   );
 }
 
-/* ─── Wire up ─── */
+/** The current role is shown in full; earlier roles stay compact and reveal their highlights on hover. */
+function Chapter({ r }: { r: Role }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["30%", "-30%"]);
+  const compact = !r.isCurrent;
+  const [open, setOpen] = useState(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout>>();
+  const show = () => {
+    clearTimeout(closeTimer.current);
+    setOpen(true);
+  };
+  // Small grace period so brushing past the edge doesn't flicker it shut
+  const hide = () => {
+    clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpen(false), 180);
+  };
 
-const timelineData = ROLES.map((r) => ({
-  title: r.title,
-  content: <ExperienceCard {...r} />,
-}));
+  return (
+    <div
+      ref={ref}
+      {...(compact && {
+        tabIndex: 0,
+        "aria-expanded": open,
+        // Opens on hover (mouse) or focus (keyboard); touch screens have no hover, so a tap toggles instead
+        onMouseEnter: show,
+        onMouseLeave: hide,
+        onFocus: show,
+        onBlur: hide,
+        onClick: () => {
+          if (!window.matchMedia("(hover: hover)").matches) setOpen((o) => !o);
+        },
+      })}
+      className={cn(
+        "relative overflow-hidden border-t border-white/[0.08] py-8 md:py-12",
+        compact && "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+      )}
+    >
+      {compact && (
+        <motion.span
+          aria-hidden
+          initial={false}
+          animate={{ scaleX: open ? 1 : 0 }}
+          transition={{ duration: 0.9, ease: reveal }}
+          className="absolute inset-x-0 top-0 h-px origin-left bg-gradient-to-r from-primary via-orange-400 to-transparent"
+        />
+      )}
+      <motion.span
+        style={{ y }}
+        className={cn(
+          "pointer-events-none absolute -right-4 top-0 select-none font-mono font-black leading-none transition-colors duration-700",
+          open ? "text-primary/[0.12]" : "text-white/[0.04]",
+          compact ? "text-[6rem] md:text-[9rem]" : "text-[10rem] md:text-[16rem]"
+        )}
+      >
+        {r.version}
+      </motion.span>
+      <div className="relative grid gap-6 md:grid-cols-[1fr_1.2fr] md:gap-8">
+        <div>
+          <p className="font-mono text-sm text-primary">{r.period}</p>
+          <motion.h3
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease }}
+            className={cn(
+              "mt-3 font-black leading-[0.95] tracking-tight text-foreground",
+              compact ? "text-2xl md:text-4xl" : "text-3xl md:text-5xl"
+            )}
+          >
+            {r.role}
+          </motion.h3>
+          <div className="mt-4">
+            <Company r={r} />
+          </div>
+        </div>
 
-/* ─── Section ─── */
+        {!compact && <Highlights r={r} />}
+        {compact && (
+          <AnimatePresence initial={false}>{open && <RevealHighlights key="reveal" r={r} />}</AnimatePresence>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function ExperienceSection() {
   return (
-    <div
-      id="experience"
-      className="section-wrapper section-darker relative"
-    >
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 right-1/3 w-[600px] h-[600px] bg-gradient-to-br from-violet-500/[0.07] via-transparent to-teal-500/[0.05] rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="section-container flex flex-col items-center gap-8 md:gap-10 relative z-10">
-        <MorphingText texts={texts} />
-        <Timeline data={timelineData} />
+    <section id="experience" className="section-wrapper section-darker relative">
+      <div className="section-container relative z-10">
+        <SectionHeading
+          index="04"
+          label="experience"
+          title="Changelog"
+          subtitle="From intern to full stack developer: every release of my career so far."
+        />
+        <div>
+          {ROLES.map((r) => (
+            <Chapter key={r.version} r={r} />
+          ))}
+        </div>
       </div>
-      <ShootingStars />
-      <StarsBackground />
-    </div>
+    </section>
   );
 }

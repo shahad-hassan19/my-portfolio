@@ -1,125 +1,92 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { StarsBackground } from "@/components/ui/stars-background";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const CURRENT_YEAR = new Date().getFullYear();
-const DESIGNER_NAME = "Shahad Hassan";
+import { EMAIL, SOCIAL_LINKS } from "../_data/contact";
 
-const QUICK_LINKS = [
-    { name: "About", href: "#about-me" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Experience", href: "#experience" },
-    { name: "Contact", href: "#contact-me" },
+const YEAR = new Date().getFullYear();
+
+const NAV = [
+  { name: "About", href: "#about-me" },
+  { name: "Skills", href: "#skills" },
+  { name: "Projects", href: "#projects" },
+  { name: "Experience", href: "#experience" },
+  { name: "Contact", href: "#contact-me" },
 ];
 
+function Icons({ className = "" }: { className?: string }) {
+  return (
+    <ul className={`flex gap-2 ${className}`}>
+      {SOCIAL_LINKS.map((s) => (
+        <li key={s.label}>
+          <a
+            href={s.href}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={s.label}
+            className="grid h-10 w-10 place-items-center rounded-full border border-white/[0.1] text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary"
+          >
+            <FontAwesomeIcon icon={s.icon} />
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default function FooterSection(): JSX.Element {
-    return (
-        <footer className="w-full relative">
-            {/* Top border accent */}
-            <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
-
-            {/* Section background */}
-            <div className="relative bg-gradient-to-b from-transparent via-background/70 to-background backdrop-blur-md">
-                {/* Gradient orbs */}
-                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-br from-violet-500/[0.08] via-transparent to-transparent rounded-full blur-[120px] pointer-events-none" />
-                <div className="absolute bottom-0 left-1/4 w-[300px] h-[300px] bg-gradient-to-tr from-teal-500/[0.06] via-transparent to-transparent rounded-full blur-[100px] pointer-events-none" />
-
-                <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 xl:px-24 py-16 relative z-10">
-                    {/* Top section - Links and CTA */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 pb-16 border-b border-white/[0.05]">
-                        {/* Branding */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5 }}
-                            className="md:col-span-1"
-                        >
-                            <Link href="/" className="inline-flex items-center gap-2 mb-4">
-                                <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-teal-500 via-violet-500 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-violet-500/20">
-                                    <span className="text-white font-bold text-lg">SH</span>
-                                </div>
-                                <span className="font-bold text-lg text-foreground hidden sm:inline">Shahad Hassan</span>
-                            </Link>
-                            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-                                Building beautiful, scalable web experiences with modern technologies.
-                            </p>
-                        </motion.div>
-
-                        {/* Quick Links */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            className="md:col-span-1"
-                        >
-                            <h4 className="text-foreground font-bold text-lg mb-6">Quick Links</h4>
-                            <ul className="space-y-3">
-                                {QUICK_LINKS.map((link, idx) => (
-                                    <li key={idx}>
-                                        <Link
-                                            href={link.href}
-                                            className="text-muted-foreground hover:text-primary transition-colors duration-300 flex items-center gap-2 group"
-                                        >
-                                            <span className="h-1 w-1 rounded-full bg-primary/0 group-hover:bg-primary transition-all" />
-                                            {link.name}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </motion.div>
-
-                        {/* CTA */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                            className="md:col-span-1 flex flex-col justify-start"
-                        >
-                            <h4 className="text-foreground font-bold text-lg mb-6">Get In Touch</h4>
-                            <p className="text-muted-foreground text-sm mb-4">
-                                Have a project in mind? Let&apos;s work together!
-                            </p>
-                            <Link
-                                href="#contact-me"
-                                className="btn-gradient py-2 px-4 text-sm inline-flex items-center justify-center gap-2 w-fit group"
-                            >
-                                <span>Contact Me</span>
-                                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-                            </Link>
-                        </motion.div>
-                    </div>
-
-                    {/* Bottom section - Copyright and Designer */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.3 }}
-                        className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left"
-                    >
-                        <div className="text-sm text-muted-foreground">
-                            <p>&copy; {CURRENT_YEAR} Shahad Hassan. All rights reserved.</p>
-                        </div>
-
-                        <div className="text-sm">
-                            <p className="text-muted-foreground">
-                                <span>Designed & Developed by </span>
-                                <Link
-                                    href="/"
-                                    className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-violet-300 to-rose-300 font-bold hover:from-teal-200 hover:via-violet-200 hover:to-rose-200 transition-all duration-300 cursor-pointer underline underline-offset-2"
-                                >
-                                    {DESIGNER_NAME}
-                                </Link>
-                            </p>
-                        </div>
-                    </motion.div>
-                </div>
-
-                <StarsBackground />
+  return (
+    <footer className="relative pb-3 pt-10 sm:pb-4">
+      {/* From xl the card spans the full 6xl box, so its inner padding lines the text up with the sections */}
+      <div className="mx-auto max-w-6xl px-3 sm:px-4 xl:px-0">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="relative overflow-hidden rounded-3xl border border-white/[0.08] bg-card/80 px-6 py-10 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-sm md:px-10 md:py-12 xl:px-12"
+        >
+          {/* Amber kept to accents: a hairline on top and a soft glow behind the name */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+          <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+          <div className="relative grid gap-10 md:grid-cols-2 md:items-end">
+            <div>
+              <p className="font-mono text-xs font-semibold uppercase tracking-widest text-primary/80">Full Stack Developer</p>
+              <p className="mt-3 text-4xl font-black leading-[0.95] tracking-tight text-foreground md:text-6xl">
+                Shahad
+                <br />
+                <span className="gradient-text-animated">Hassan</span>
+                <span className="text-primary">.</span>
+              </p>
             </div>
-        </footer>
-    );
+            <div className="flex flex-col gap-6 md:items-end">
+              <a
+                href={`mailto:${EMAIL}`}
+                className="text-lg font-bold text-foreground underline decoration-primary/40 decoration-2 underline-offset-4 transition-colors hover:text-primary"
+              >
+                {EMAIL}
+              </a>
+              <Icons />
+            </div>
+          </div>
+          <div className="relative mt-10 flex flex-col items-start justify-between gap-4 border-t border-white/[0.06] pt-5 text-sm sm:flex-row sm:items-center">
+            <ul className="flex flex-wrap gap-1.5">
+              {NAV.map((n) => (
+                <li key={n.name}>
+                  <a
+                    href={n.href}
+                    className="inline-flex rounded-full border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                  >
+                    {n.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="text-muted-foreground">© {YEAR} · Designed &amp; built by me</p>
+          </div>
+        </motion.div>
+      </div>
+    </footer>
+  );
 }

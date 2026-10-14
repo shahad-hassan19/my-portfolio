@@ -23,6 +23,9 @@ const config: Config = {
     ],
     theme: {
   	    extend: {
+  		    fontFamily: {
+  			    serif: ["var(--font-serif)", "Georgia", "serif"],
+  		    },
   		    animation: {
   			    spotlight: 'spotlight 2s ease .75s 1 forwards',
       			rainbow: 'rainbow var(--speed, 2s) infinite linear'
